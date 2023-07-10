@@ -58,6 +58,10 @@ export const Content = styled.div`
     }
 
 }
+
+#order{
+    display: none;
+}
  
     .nav-menu {
         display: flex;
@@ -65,6 +69,7 @@ export const Content = styled.div`
         
         width: 100%;
         gap: 3.2rem;
+
     }
 
     .hamburger {
@@ -83,8 +88,19 @@ export const Content = styled.div`
         background-color: ${({ theme }) => theme.COLORS.BLUE};
     }
 
-    @media only screen and (max-width: 768px) {
+    .button{
+        width: 30rem;
+        display:flex;
+        align-items: center;
+    
+    }
+
+    @media (max-width: 768px) {
         max-width: 768px;
+
+        #order{
+            display:flex;
+        }
 
         .nav-menu {
             flex-direction: column;
@@ -108,6 +124,9 @@ export const Content = styled.div`
             background-color: ${({ theme }) => theme.COLORS.BLUE_200};
             box-shadow:
                 0 10px 27px rgba(0, 0, 0, 0.05);
+
+           
+              
         }
 
         .nav-menu.active {
