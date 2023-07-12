@@ -2,18 +2,17 @@ import styled from "styled-components";
 
 
 export const Container = styled.header`
+   grid-area:header;
+   position: fixed;
+   height: 10.5rem;
     display: flex;
     width: 100%;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-
     box-shadow: 0px 0px 10px 5px #193746;
     -webkit-box-shadow: 0px 0px 10px 5px #193746; 
-    
+    z-index: 999;
     justify-content: center;
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_600};
-
+  
 
     @keyframes scale-up-center {
         0% {
@@ -23,7 +22,7 @@ export const Container = styled.header`
             transform: scale(1.2);
         }
     }
-
+    
    
 `;
 
@@ -49,6 +48,7 @@ export const Content = styled.div`
         font-size: 2.5rem;
       
     }
+    
     a {
         display: flex;
         gap: 1rem;
@@ -69,6 +69,13 @@ export const Content = styled.div`
         
         width: 100%;
         gap: 3.2rem;
+
+        p{
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+          
+           }
 
     }
 
@@ -125,7 +132,7 @@ export const Content = styled.div`
             box-shadow:
                 0 10px 27px rgba(0, 0, 0, 0.05);
 
-           
+          
               
         }
 
@@ -231,31 +238,7 @@ export const Profile = styled.div`
         animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
     }
 
-    .user-menu {
-        display: none;
-    }
-    
-    .user-menu.active {
-        display: flex;
-        flex-direction: column;
-        align-self: center;
-
-        position: absolute;
-        margin-top: 23rem;
-        gap: 1rem;
-        padding: 1rem;
-
-        z-index: 9999;
-        
-        border-radius: 1rem;
-        border: 1px solid ${({ theme }) => theme.COLORS.BLUE};
-        
-        transition: 0.3s;
-        
-        background-color: ${({ theme }) => theme.COLORS.BLUE_200};
-        box-shadow:
-            0 10px 27px rgba(0, 0, 0, 0.05);
-    }
+   
 `;
 
 export const ButtonMenu = styled.button`

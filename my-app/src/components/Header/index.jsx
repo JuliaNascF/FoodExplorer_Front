@@ -15,9 +15,7 @@ export function Header({search, favoritesFilter}) {
         document.getElementById('nav-menu').classList.toggle('active')
     }
 
-    function userMenu() {
-        document.getElementById('user-menu').classList.toggle('active')
-    }
+ 
 
     return (
         <Container>
@@ -45,11 +43,14 @@ export function Header({search, favoritesFilter}) {
                             <FiSearch size={24}/>
                             <input 
                                 type="text" 
-                                placeholder="Busque pelas opções de pratos"
+                                placeholder="Busque por pratos"
                                 onChange={e => {search(e.target.value)}}
                             />
                         </label>
                     </Search>
+
+                    <p>Meus favoritos</p>
+                    <p>Histórico de Pedidos</p>
                      
                      <div className="button">
                     
@@ -58,28 +59,6 @@ export function Header({search, favoritesFilter}) {
 
                      </div>
                        
-
-                    <Profile onClick={userMenu}>
-                        <FiUser />
-                        <div className="user-menu" id="user-menu">
-                                
-                               
-                                    <ButtonMenu onClick={favoritesFilter}>
-                                        <FiHeart size={24}/>
-                                        Meus Favoritos
-                                    </ButtonMenu>
-                               
-                                
-                             
-                                    <ButtonMenu>
-                                        <FiUser size={24}/>
-                                        Meu Perfil
-                                    </ButtonMenu>
-                              
-                        </div>
-                    </Profile>
-                    
-
                     <Logout>
 
                         <FiLogOut />

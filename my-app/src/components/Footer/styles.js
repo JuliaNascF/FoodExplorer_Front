@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.footer`
+
     width: 100%;
-    height: 7.7rem;
+    height: 8rem;
+    
     
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_600};
     align-items: center;

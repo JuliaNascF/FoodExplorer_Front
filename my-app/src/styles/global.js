@@ -13,32 +13,15 @@ export default createGlobalStyle`
     body {
         background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
         color: ${({ theme }) => theme.COLORS.WHITE};
-
-        -webkit-font-smoothing: antialiased;
-
-        *::-webkit-scrollbar {
-            width: 22px;
-            height: 22px;
-            border-radius: 9999px;
-        }
-
-        *::-webkit-scrollbar-corner {
-            background-color: transparent;
-        }
-
-        *::-webkit-scrollbar-thumb {
-            width: 6px;
-            background-color: transparent;
-            border-radius: 80px;
-            box-shadow: inset 0 0 0px 6px ${({ theme }) => theme.COLORS.BLUE};
-            border: solid 10px transparent;
-        }
+      
+      
 
         /* Chrome, Safari, Edge, Opera */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
+        
         }
 
         /* Firefox */
