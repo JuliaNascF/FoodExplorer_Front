@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
+    
     max-width: 110.6rem;
     height: 100vh;
     
@@ -11,33 +12,33 @@ export const Container = styled.div`
     
     justify-content: space-between;
     align-items: center;
-
-    
-    
-    @media only screen and (min-width: 890px) {
-        flex-direction: row;
-    }
-
+     
     .logo{
         display: flex;
     align-items: center;
+    gap: 2rem;
     color: ${({ theme }) => theme.COLORS.BLUE};
     margin-bottom: 4rem;
-    gap: 2rem;
-    @media only screen and (max-width: 540px) {
-      margin-bottom:0;
-    }
-    
+
     h1 {
         font-size: clamp(3rem, 3rem + 1.5vw, 4.248rem);
         white-space: nowrap;
     }
+
+    .logo {
+        display: flex;
+        gap: 1.9rem;
+    }
+
     svg {
         height: 5rem;
         width: 5rem;
     }
     }
-      
+
+    @media only screen and (min-width: 890px) {
+        flex-direction: row;
+    }
 `;
 
 export const Form = styled.form`
@@ -48,13 +49,12 @@ export const Form = styled.form`
     
     max-width: 47.6rem;
     width: 100%;
-    height: 54rem;
-    
     padding: 5rem;
     border-radius: 1.6rem;
 
     background-color: ${({ theme }) => theme.COLORS.BLUE_200};
   
+
     > h2 {
         font-family: 'Poppins', sans-serif;
         font-size: 3.2rem;

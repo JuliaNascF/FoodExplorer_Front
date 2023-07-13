@@ -1,9 +1,8 @@
-import { Container, Content, Search, ButtonMenu, Profile, Logout} from "./styles";
+import { Container, Content, Search, Logout} from "./styles";
 import { Button } from "../Button";
 import order from "../../assets/order.svg"
 
-import { FiSearch, FiLogOut, FiUser, FiHeart } from 'react-icons/fi';
-
+import { FiSearch, FiLogOut} from 'react-icons/fi';
 
 import logo from '../../assets/logo.svg';
 
