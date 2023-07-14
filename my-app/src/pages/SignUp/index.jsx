@@ -5,6 +5,7 @@ import { Button } from "../../components/Button";
 
 import { api } from "../../services/api";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export function SignUp() {
@@ -13,7 +14,11 @@ export function SignUp() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
-  
+    const navigate = useNavigate();
+
+    function handleBack() {
+        navigate(-1);
+    }
 
     function handleSignUp(){
         if (!name || !email || !password) {
@@ -25,7 +30,7 @@ export function SignUp() {
         api.post("/users", { name, email, password })
             .then(() => {
                 alert("Usuário cadastrado com sucesso!");
-             
+                navigate(-1);
                 setLoading(false);
             })
             .catch(error => {
@@ -87,7 +92,7 @@ export function SignUp() {
                             disabled={loading}
                         />
 
-                      <p>  Já tenho uma conta</p>
+                      <p onClick={handleBack}>  Já tenho uma conta</p>
                           
                         
 

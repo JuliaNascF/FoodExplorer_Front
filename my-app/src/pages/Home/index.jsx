@@ -16,9 +16,6 @@ export function Home() {
     const [search, setSearch] = useState("")
 
 
-
-
-
     return (
 
         <Container>

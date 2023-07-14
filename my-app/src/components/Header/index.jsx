@@ -3,18 +3,16 @@ import { Button } from "../Button";
 import order from "../../assets/order.svg"
 
 import { FiSearch, FiLogOut} from 'react-icons/fi';
-
+import { useAuth } from "../../hooks/auth";
 import logo from '../../assets/logo.svg';
 
 
 export function Header({search, favoritesFilter}) {
-
+    const { signOut } = useAuth();
     function mobileMenu() {
         document.getElementById('hamburger').classList.toggle('active')
         document.getElementById('nav-menu').classList.toggle('active')
     }
-
- 
 
     return (
         <Container>
@@ -58,7 +56,7 @@ export function Header({search, favoritesFilter}) {
 
                      </div>
                        
-                    <Logout>
+                    <Logout onClick={signOut}>
 
                         <FiLogOut />
                     </Logout>

@@ -5,16 +5,30 @@ import { Button } from "../../components/Button";
 import { useAuth } from "../../hooks/auth";
 import { useState } from "react";
 
-
 export function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const { signIn, loading } = useAuth();
 
+
+
     function handleSignIn() {
-        signIn({ email, password });
-    }
+        signIn({ email, password })
+          .then(() => {
+            const isAuthenticated = localStorage.getItem('@budega:token') !== null;
+            if (isAuthenticated) {
+            
+            }
+          })
+          .catch((error) => {
+            console.log(error)
+          });
+      }
+      
+      function handleSignUp(){
+    
+      }
+   
 
     return (
         <Container>
@@ -55,7 +69,7 @@ export function SignIn() {
                 />
                    
                    
-                   <p>Criar conta</p>
+                   <p  onClick={handleSignUp}>Criar conta</p>
                     
                    
                

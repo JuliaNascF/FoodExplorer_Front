@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components'
 import GlobalStyle from "./styles/global"
 import theme from "./styles/theme"
-import { SignUp} from './pages/SignUp';
+import { Routes } from './routes';
 import { AuthProvider } from './hooks/auth';
 
 
@@ -13,8 +13,7 @@ root.render(
     <ThemeProvider theme={theme}>
     <GlobalStyle/>
    <AuthProvider>
-        <SignUp/>
-
+        <Routes/> 
    </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>
