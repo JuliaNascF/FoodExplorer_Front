@@ -1,76 +1,171 @@
 // Styling Imports
-import { Container, Content, Banner } from "./styles.js";
+import { Container, Content, Banner, Category } from "./styles.js";
 
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { Card } from "../../components/Card";
-
+import { useRef } from "react";
+import { ButtonText } from "../../components/ButtonText/index.jsx";
 import { api } from '../../services/api';
 import { useState, useEffect } from 'react';
 import background from "../../assets/Mask group.png"
-
+import { MdOutlineArrowForwardIos, MdOutlineArrowBackIosNew } from "react-icons/md"
 
 export function Home() {
-
-    const [dishes, setDishes] = useState([])
-    const [search, setSearch] = useState("")
+  const [dishes, setDishes] = useState([]);
 
 
-    return (
+  useEffect(() => {
+    async function fetchDishes() {
+      try {
+        const response = await api.get('/dishes');
+        setDishes(response.data);
+        
 
-        <Container>
-            <Header />
-            <main>
+        
+      } catch (error) {
+        console.error('Erro ao buscar os pratos:', error);
+    
+      }
+    }
+
+    fetchDishes();
+  }, []);
+
+  const refeicoesProductContainerRef = useRef(null);
+  const sobremesaProductContainerRef = useRef(null);
+  const bebidaProductContainerRef = useRef(null);
+
+  const scrollLeft = (category) => {
+    if (category === 'refeicao') {
+      refeicoesProductContainerRef.current.scrollBy({
+        left: -260,
+        behavior: "smooth",
+      });
+    } else if (category === 'sobremesa') {
+      sobremesaProductContainerRef.current.scrollBy({
+        left: -260,
+        behavior: "smooth",
+      });
+    } else if (category === 'bebida') {
+      bebidaProductContainerRef.current.scrollBy({
+        left: -260,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const scrollRight = (category) => {
+    if (category === 'refeicao') {
+      refeicoesProductContainerRef.current.scrollBy({
+        left: 260,
+        behavior: "smooth",
+      });
+    } else if (category === 'sobremesa') {
+      sobremesaProductContainerRef.current.scrollBy({
+        left: 260,
+        behavior: "smooth",
+      });
+    } else if (category === 'bebida') {
+      bebidaProductContainerRef.current.scrollBy({
+        left: 260,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  return (
+    <Container>
+      <Header />
+      <main>
+        <Content>
+          <Banner>
+            <img src={background} alt="Imagem de ingredientes" />
+            <div className="banner">
+              <div className="title">
+                <h1>Sabores inigualáveis</h1>
+                <span>Sinta o cuidado do preparo com ingredientes selecionados</span>
+              </div>
+            </div>
+          </Banner>
+
+             
+          <p>Refeições</p>
+           
+           <Category> 
+          <ButtonText icon={MdOutlineArrowBackIosNew} onClick={() => scrollLeft('refeicao')} />
+
+          <div className="card" style={{ display: "flex", scrollBehavior: "smooth" }} ref={refeicoesProductContainerRef}>
+            {dishes
+              .filter((card) => card.category === "refeicao")
+              .map((card) => (
+                <Card
+                  key={card.id}
+                  name= {card.name}
+                  image={card.image}
+                  description={card.description}
+                  price={card.price}
+                  data={card}
+                />
+              ))}
+          </div>
 
 
-                <Content>
+          <ButtonText icon={MdOutlineArrowForwardIos} onClick={() => scrollRight('refeicao')} />
+          </Category>
 
 
-                    <Banner>
-                        <img src={background} alt="Imagem de ingredientes" />
+          <p>Sobremesas</p>
+          <Category> 
+          <ButtonText icon={MdOutlineArrowBackIosNew} onClick={() => scrollLeft('sobremesa')} />
 
-                        <div className="banner">
-                            <div className="title">
-                                <h1>Sabores inigualáveis</h1>
-                                <span>Sinta o cuidado do preparo com ingredientes selecionados</span>
-                            </div>
-                        </div>
-                    </Banner>
+          <div className="card" style={{ display: "flex", scrollBehavior: "smooth" }} ref={sobremesaProductContainerRef}>
+            {dishes
+              .filter((card) => card.category === "sobremesa")
+              .map((card) => (
+                <Card
+                  key={card.id}
+                  name= {card.name}
+                  image={card.image}
+                  description={card.description}
+                  price={card.price}
+                  data={card}
+                />
+              ))}
+          </div>
 
-                  
-                        <p>Refeições</p>
 
-                        <div className="card">
+          <ButtonText icon={MdOutlineArrowForwardIos} onClick={() => scrollRight('sobremesa')} />
+          </Category>
 
-                            <Card />
-                            <Card />
-                            <Card />
-                        
-                        </div>
 
-                        <p>Sobremesas</p>
-                        <div className="card">
+          <p>Bebidas</p>
+          <Category> 
+          <ButtonText icon={MdOutlineArrowBackIosNew} onClick={() => scrollLeft('bebida')} />
 
-                            <Card />
-                            <Card />
-                            <Card />
-                        
-                        </div>
+          <div className="card" style={{ display: "flex", scrollBehavior: "smooth" }} ref={bebidaProductContainerRef}>
+            {dishes
+              .filter((card) => card.category === "bebida")
+              .map((card) => (
+                <Card
+                  key={card.id}
+                  name= {card.name}
+                  image={card.image}
+                  description={card.description}
+                  price={card.price}
+                  data={card}
+                />
+              ))}
+          </div>
 
-                        <p>Bebidas</p>
 
-                        <div className="card">
+          <ButtonText icon={MdOutlineArrowForwardIos} onClick={() => scrollRight('bebida')} />
+          </Category>
 
-                            <Card />
-                            <Card />
-                            <Card />
-                         
-                        </div>
-                    
-                </Content>
-                <Footer />
-            </main>
-        </Container>
+        </Content>
+        <Footer />
+      </main>
+    </Container>
 
-    );
+  );
 }

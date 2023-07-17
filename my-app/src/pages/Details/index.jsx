@@ -1,4 +1,4 @@
-// Styling Imports
+
 import { Container, Content, Ingredient, PurchaseCard } from "./styles.js";
 
 import { Header } from "../../components/Header";
@@ -6,11 +6,12 @@ import { Footer } from "../../components/Footer";
 import { ButtonText } from "../../components/ButtonText";
 import { Button } from "../../components/Button";
 
-
 import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { RiArrowLeftSLine } from 'react-icons/ri';
 import { FiMinus, FiPlus } from 'react-icons/fi';
@@ -18,8 +19,14 @@ import { BsReceipt } from 'react-icons/bs';
 
 export function Details() {
 
+
     const { user } = useAuth()
 
+    const navigate = useNavigate();
+
+    function handleBack() {
+        navigate(-1);
+    }
 
     const [data, setData] = useState(null);
     const params = useParams();
@@ -27,7 +34,7 @@ export function Details() {
 
     const [quantity, setQuantity] = useState(1);
 
-    // Increase Quantity
+
     const increase = () => {
         if (quantity > 19) {
             alert("Erro: A quantidade máxima é de 20 unidades")
@@ -36,7 +43,7 @@ export function Details() {
         setQuantity(count => count + 1);
     };
 
-    // Decrease Quantity
+
     const decrease = () => {
         if (quantity < 2) {
             alert("Erro: A quantidade mínima é 1 unidade")
@@ -63,30 +70,27 @@ export function Details() {
 
                 <Content>
 
-
-
-
                     <ButtonText
                         title="Voltar"
                         icon={RiArrowLeftSLine}
-
+                        onClick={handleBack}
                     />
 
 
                     <div className="content">
 
                         <div className="dish">
-                            <img alt="Logo" />
+                            <img src={data.image} alt="Logo" />
                             <div className="description">
 
-                                <h1>Macarronada</h1>
+                                <h1>{data.title}</h1>
 
-                                <h3>Bem massuda</h3>
+                                <h3>{data.description}</h3>
 
-                              
+                         
 
                                 <div className="price">
-                                    <h4>R$ </h4>
+                                    <h4>R$ {data.price}</h4>
 
                                     <div className="purchaseCard">
                                         {
@@ -95,12 +99,12 @@ export function Details() {
                                                 <PurchaseCard>
                                                     {
                                                         data &&
-                                                       
+                                                        <Link to={`/editdish/${data.id}`}>
                                                             <Button
                                                                 title="editar prato"
                                                                 icon={BsReceipt}
                                                             />
-                                                  
+                                                        </Link>
                                                     }
                                                 </PurchaseCard>
 
@@ -110,12 +114,12 @@ export function Details() {
                                                     <div className="counter">
                                                         <ButtonText
                                                             icon={FiMinus}
-                                                           
+                                                            onClick={decrease}
                                                         />
                                                         <span>{quantity.toString().padStart(2, '0')}</span>
                                                         <ButtonText
                                                             icon={FiPlus}
-                                                          
+                                                            onClick={increase}
                                                         />
                                                     </div>
 

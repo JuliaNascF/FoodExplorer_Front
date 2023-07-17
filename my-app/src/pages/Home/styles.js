@@ -131,3 +131,24 @@ export const Banner = styled.div`
         }
     }
 `;
+
+export const Category = styled.div`
+   display: flex;
+  
+
+  > .card {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 20px;
+
+    &::-webkit-scrollbar {
+      display: none;
+     
+  }
+  }
+   
+  button{
+    color:${({ theme }) => theme.COLORS.BLUE_GREEN_800}
+  }
+`;

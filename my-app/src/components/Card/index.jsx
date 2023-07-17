@@ -1,35 +1,31 @@
 
 import { Container, Content, PurchaseCard } from './styles.js'
-
 import { Button } from '../Button';
 import { ButtonText } from "../ButtonText";
-
 import { useAuth } from "../../hooks/auth";
 
 import { useState } from "react";
-
-
 import { BsReceipt } from 'react-icons/bs';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
-import imagePlaceholder from '../../assets/logo-gray.svg';
+import { useNavigate } from 'react-router-dom';
 
-export function Card({ data, ...rest }) {
-
+export function Card({ data, image, description, name, price,  ...rest }) {
     const { user } = useAuth()
-    
-
-    const imageURL =  imagePlaceholder;
-    
+    const navigate= useNavigate();
     const [quantity, setQuantity] = useState(1);
 
-    //====increase quantity====//
+    function handleDetails(id) {
+        navigate(`/details/${id}`)
+      }
+    
     const increase = () => {
         if (quantity > 19) {
             alert("Erro: A quantidade máxima é de 20 unidades")
             return;
         }
         setQuantity(count => count + 1);
+        console.log(image)
     };
      
     const decrease = () => {
@@ -41,24 +37,24 @@ export function Card({ data, ...rest }) {
     };
 
     return (
-        <Container {...rest}>
+        <Container onClick={() => handleDetails(data.id)} {...rest}>
             {
                 user.isAdmin ?
 
                     <Content>
                         <div className="container">
-                            <img src={imageURL} alt="Imagem do prato" />
+                            <img src={image} alt="Imagem do prato" />
+                           
+                                <h3 className="product-title">{name}</h3>
                         
-                                <h3 className="product-title">njkfndjfndkjfn{' >'}</h3>
-                      
-                            <p className="description"></p>
-                            <h1 className="price">R$</h1>
+                            <p className="description">{description}</p>
+                            <h1 className="price">R${price}</h1>
                           
                                 <Button
                                     title="editar prato"
                                     icon={BsReceipt}
                                 />
-                           
+                        
                         </div>
                     </Content>
 
@@ -67,21 +63,22 @@ export function Card({ data, ...rest }) {
                     <Content>
                         <button 
                             className="favButton"
-                        
+                           
                             >
                             
                                     <AiFillHeart />
-                               
-                             
+                                
+                                    <AiOutlineHeart />
+                                
                         </button>
 
                         <div className="container">
-                            <img src={imageURL} alt="Imagem do prato" />
-                        
-                                <h3 className="product-title"> </h3>
-                        
-                            <p className="description"></p>
-                            <h1 className="price">R$ </h1>
+                            <img src={image} alt="Imagem do prato" />
+                           
+                                <h3 className="product-title">{name} </h3>
+                
+                            <p className="description">{description}</p>
+                            <h1 className="price">R${price}</h1>
 
                             <PurchaseCard>
                                 <div className="counter">
@@ -99,7 +96,7 @@ export function Card({ data, ...rest }) {
                                 <Button 
                                     title="incluir"
                                     icon={BsReceipt}
-                                  style={ { height: 56, width: 92, padding: '12px 4px' } }
+                                    style={ { height: 56, width: 92, padding: '12px 4px' } }
                                 />
                             </PurchaseCard>
                         </div>
