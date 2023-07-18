@@ -29,12 +29,14 @@ export const Content = styled.div`
     }
 
     .container {
+        cursor:pointer;
         display: grid;
         padding: 3.8rem 2.6rem;
         text-align: center;
         align-items: center;
 
         > img {
+            cursor:pointer;
             width: 17.6rem;
             height: 17.6rem;
             margin: 3rem auto 1.6rem;
@@ -43,7 +45,8 @@ export const Content = styled.div`
         }
     }
 
-    .product-title {
+    .disheName {
+        cursor:pointer;
         font-weight: 700;
         font-size: 2.4rem;
         color: ${({ theme }) => theme.COLORS.WHITE};
@@ -53,6 +56,7 @@ export const Content = styled.div`
     }
     
     .description {
+        cursor:pointer;
         font-family: 'Roboto', sans-serif;
         font-size: 1.4rem;
         font-weight: 400;
@@ -63,6 +67,7 @@ export const Content = styled.div`
     }
 
     .price {
+        cursor:pointer;
         font-family: 'Roboto', sans-serif;
         font-size: 3.2rem;
         font-weight: 400;

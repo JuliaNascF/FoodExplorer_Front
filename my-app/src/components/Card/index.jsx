@@ -3,8 +3,8 @@ import { Container, Content, PurchaseCard } from './styles.js'
 import { Button } from '../Button';
 import { ButtonText } from "../ButtonText";
 import { useAuth } from "../../hooks/auth";
-
-import { useState } from "react";
+import { api } from '../../services/api.js';
+import { useState, useEffect } from "react";
 import { BsReceipt } from 'react-icons/bs';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
@@ -12,8 +12,9 @@ import { useNavigate } from 'react-router-dom';
 
 export function Card({ data, image, description, name, price,  ...rest }) {
     const { user } = useAuth()
-    const navigate= useNavigate();
     const [quantity, setQuantity] = useState(1);
+    const [isFavorite, setIsFavorite] = useState(false);
+    const navigate= useNavigate();
 
     function handleDetails(id) {
         navigate(`/details/${id}`)
@@ -36,16 +37,66 @@ export function Card({ data, image, description, name, price,  ...rest }) {
         setQuantity(count => count - 1);
     };
 
+      function handleFavoriteClick() {
+    if (isFavorite) {
+      removeFromFavorites();
+    } else {
+      addToFavorites();
+    }
+  }
+
+  async function addToFavorites() {
+    if (user && user.id) {
+      setIsFavorite(true);
+      try {
+        const response = await api.post(`/favorites/${data.id}`);
+        console.log(response)
+      } catch (error) {
+      }
+    } else {
+    
+    }
+  }
+
+  async function removeFromFavorites() {
+    if (user && user.id) {
+      setIsFavorite(false);
+      try {
+       await api.delete(`/favorites/${data.id}`);
+       
+      } catch (error) {
+      }
+    } else {
+     
+    
+    }
+  }
+
+  useEffect(() => {
+    async function checkFavoriteStatus() {
+      if (user && user.id) {
+        try {
+          const response = await api.get(`/favorites/check/${data.id}`);
+          setIsFavorite(response.data.isFavorite);
+        } catch (error) {
+        
+        }
+      }
+    }
+
+    checkFavoriteStatus();
+  }, [user, data.id]);
+
     return (
-        <Container onClick={() => handleDetails(data.id)} {...rest}>
+        <Container {...rest}>
             {
                 user.isAdmin ?
 
                     <Content>
-                        <div className="container">
-                            <img src={image} alt="Imagem do prato" />
+                        <div  onClick={() => handleDetails(data.id)} className="container">
+                            <img   src={image} alt="Imagem do prato" />
                            
-                                <h3 className="product-title">{name}</h3>
+                                <h3 className="disheName">{name}</h3>
                         
                             <p className="description">{description}</p>
                             <h1 className="price">R${price}</h1>
@@ -61,24 +112,25 @@ export function Card({ data, image, description, name, price,  ...rest }) {
                 :
 
                     <Content>
-                        <button 
+                        <button onClick={handleFavoriteClick}
                             className="favButton"
                            
                             >
-                            
+                              {isFavorite ?
                                     <AiFillHeart />
-                                
+                                :
                                     <AiOutlineHeart />
+                                }  
                                 
                         </button>
 
-                        <div className="container">
-                            <img src={image} alt="Imagem do prato" />
+                        <div onClick={() => handleDetails(data.id)} className="container">
+                            <img   src={image} alt="Imagem do prato" />
                            
-                                <h3 className="product-title">{name} </h3>
+                                <h3  className="disheName">{name} </h3>
                 
                             <p className="description">{description}</p>
-                            <h1 className="price">R${price}</h1>
+                            <h1   className="price">R${price}</h1>
 
                             <PurchaseCard>
                                 <div className="counter">
