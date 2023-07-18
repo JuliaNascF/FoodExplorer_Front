@@ -12,5 +12,5 @@ export const Container = styled.button`
     gap: 0.8rem;
 
     background: none;
-    color: ${({ theme }) => theme.COLORS.BLUE};
+    color: ${({ theme }) => theme.COLORS.WHITE};
 `;

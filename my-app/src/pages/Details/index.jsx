@@ -1,11 +1,11 @@
 
-import { Container, Content, Ingredient, PurchaseCard } from "./styles.js";
+import { Container, Content, Ingredients, PurchaseCard } from "./styles.js";
 
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { ButtonText } from "../../components/ButtonText";
 import { Button } from "../../components/Button";
-
+import { Ingredient } from "../../components/Ingredient/index.jsx";
 import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
 import { useState, useEffect } from "react";
@@ -69,73 +69,75 @@ export function Details() {
                 data &&
 
                 <Content>
-
                     <ButtonText
                         title="Voltar"
                         icon={RiArrowLeftSLine}
                         onClick={handleBack}
                     />
 
+                    <div className="dish">
+                        <img src={data.image} alt="Imagem do prato" />
 
-                    <div className="content">
 
-                        <div className="dish">
-                            <img src={data.image} alt="Logo" />
+
+                        <div className="purchaseCard">
                             <div className="description">
 
-                                <h1>{data.title}</h1>
+                                <h1>{data.name}</h1>
 
                                 <h3>{data.description}</h3>
 
-                         
-
-                                <div className="price">
-                                    <h4>R$ {data.price}</h4>
-
-                                    <div className="purchaseCard">
-                                        {
-                                            user.isAdmin ?
-
-                                                <PurchaseCard>
-                                                    {
-                                                        data &&
-                                                        <Link to={`/editdish/${data.id}`}>
-                                                            <Button
-                                                                title="editar prato"
-                                                                icon={BsReceipt}
-                                                            />
-                                                        </Link>
-                                                    }
-                                                </PurchaseCard>
-
-                                                :
-
-                                                <PurchaseCard>
-                                                    <div className="counter">
-                                                        <ButtonText
-                                                            icon={FiMinus}
-                                                            onClick={decrease}
-                                                        />
-                                                        <span>{quantity.toString().padStart(2, '0')}</span>
-                                                        <ButtonText
-                                                            icon={FiPlus}
-                                                            onClick={increase}
-                                                        />
-                                                    </div>
-
-                                                    <Button
-                                                        title="incluir"
-                                                        icon={BsReceipt}
-                                                       
-                                                        style={{ height: 56, width: 92, padding: '12px 4px' }}
-                                                    />
-                                                </PurchaseCard>
-                                        }
-                                    </div>
-                                </div>
                             </div>
+
+
+                            <Ingredients>
+                                {data.ingredients &&
+                                    data.ingredients.map((ingredient, index) => (
+                                        <Ingredient key={index} title={ingredient.name} />
+                                    ))}
+                            </Ingredients>
+
+                            {
+                                user.isAdmin ?
+
+                                    <PurchaseCard>
+                                        {
+                                            data &&
+                                            <Link to={`/editdish/${data.id}`}>
+                                                <Button
+                                                    title="editar prato"
+                                                    icon={BsReceipt}
+                                                />
+                                            </Link>
+                                        }
+                                    </PurchaseCard>
+
+                                    :
+
+                                    <PurchaseCard>
+                                        <div className="counter">
+                                            <ButtonText
+                                                icon={FiMinus}
+                                                onClick={decrease}
+                                            />
+                                            <span>{quantity.toString().padStart(2, '0')}</span>
+                                            <ButtonText
+                                                icon={FiPlus}
+                                                onClick={increase}
+                                            />
+                                        </div>
+
+                                        <Button
+                                            title="incluir"
+                                            icon={BsReceipt}
+
+                                            style={{ height: 56, width: 92, padding: '12px 4px' }}
+                                        />
+                                    </PurchaseCard>
+                            }
                         </div>
                     </div>
+
 
                 </Content>
             }

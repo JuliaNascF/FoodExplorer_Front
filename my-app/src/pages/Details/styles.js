@@ -3,26 +3,32 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    
+    display: grid;
+    grid-template-rows: 10.5rem auto ;
+    grid-template-areas:
+    "header"
+    "content";
+    height: 100vh;
     width: 100%;
     min-width: 35rem;
-    height: 100vh;
+  
 `;
 
 export const Content = styled.div`
     display: flex;
     flex-direction: column;
-    
+    grid-area:content;
     width: 100%;
     max-width: 121.2rem;
     height: 100%;
-    margin: auto;
     padding: 3.5rem 4rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    line-height: 4.75rem;
+    margin-top: 1rem;
+    text-align: center;
 
-    button:first-child {
-        font-size: 2.4rem;
-        font-weight: 500;
-    }
+  
 
     .description {
         display: flex;
@@ -30,19 +36,7 @@ export const Content = styled.div`
         align-items: center;   
     }
 
-    .description h4 {
-        margin: 2rem 0 2rem;
-        font-size: 3.2rem;
-        line-height: 5.12rem;
-        color: ${({ theme }) => theme.COLORS.BLUE};
-    }
 
-    .content {
-        font-family: 'Poppins', sans-serif;
-        font-size: 2rem;
-        line-height: 4.75rem;
-        margin-top: 1rem;
-        text-align: center;
 
         h1 {
             font-size: 3rem;
@@ -75,23 +69,26 @@ export const Content = styled.div`
         }
 
         img {
-            width: 22rem;
-            height: 22rem;
+            width: 20rem;
+            height: 20rem;
             border-radius: 50%;
             object-fit: cover
         }
-    }
+    
 
     @media only screen and (min-width: 768px) {
         width: 100%;
         max-width: 121.2rem;
         margin: auto;
         padding: 3.5rem 4rem;
+        
 
         .dish {
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 8rem;
+            gap: 15rem;
+            margin-top:3rem;
         }
 
         .description {
@@ -100,19 +97,7 @@ export const Content = styled.div`
             align-self: center;
         }
 
-        .description h4 {
-            margin: 0;
-        }
-
-        .price {
-            display: flex;
-            align-items: center;
-            gap: 5.4rem;
-            margin-top: 4.3rem;
-        }
-
-        .content {
-            margin-top: 4.2rem;
+  
             
             h1 {
                 font-size: 4rem;
@@ -132,18 +117,24 @@ export const Content = styled.div`
                 width: clamp(5rem, 5rem + 30vw, 39rem);
                 height: clamp(5rem, 5rem + 30vw, 39rem);
             }
-        }
+        
+            .purchaseCard{
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+            }
     }
 `;
-
-export const Ingredient = styled.div`
-    display: flex;
-    gap: 1.6rem;
+export const Ingredients = styled.div`
+  margin: 40px 0;
+  
 `;
+
+
 
 export const PurchaseCard = styled.div`
     display: flex;
-
+    justify-content: center;
     button {
         height: 5.6rem;
         max-width: 24.6rem;
