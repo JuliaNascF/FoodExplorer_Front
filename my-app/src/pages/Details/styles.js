@@ -4,10 +4,11 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     display: grid;
-    grid-template-rows: 10.5rem auto ;
+    grid-template-rows: 10.5rem auto 8rem;
     grid-template-areas:
     "header"
-    "content";
+    "content"
+    "footer";
     height: 100vh;
     width: 100%;
     min-width: 35rem;

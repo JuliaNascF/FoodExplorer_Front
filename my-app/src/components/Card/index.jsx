@@ -87,19 +87,30 @@ export function Card({ data, image, description, name, price,  ...rest }) {
     checkFavoriteStatus();
   }, [user, data.id]);
 
+  async function AddToCart(id, quantity) {
+      try {
+        await api.post(`/cart/${id}`, { quantity });
+        alert("Produto adicionado ao carrinho!");
+       
+      } catch (error) {
+        alert("Erro ao adicionar produto ao carrinho!");
+       
+      }
+  }
+  
     return (
         <Container {...rest}>
             {
                 user.isAdmin ?
 
                     <Content>
-                        <div  onClick={() => handleDetails(data.id)} className="container">
-                            <img   src={image} alt="Imagem do prato" />
+                        <div className="container">
+                            <img onClick={() => handleDetails(data.id)} src={image} alt="Imagem do prato" />
                            
-                                <h3 className="disheName">{name}</h3>
+                                <h3 onClick={() => handleDetails(data.id)} className="disheName">{name}</h3>
                         
-                            <p className="description">{description}</p>
-                            <h1 className="price">R${price}</h1>
+                            <p onClick={() => handleDetails(data.id)} className="description">{description}</p>
+                            <h1 onClick={() => handleDetails(data.id)} className="price">R${price}</h1>
                           
                                 <Button
                                     title="editar prato"
@@ -124,13 +135,13 @@ export function Card({ data, image, description, name, price,  ...rest }) {
                                 
                         </button>
 
-                        <div onClick={() => handleDetails(data.id)} className="container">
-                            <img   src={image} alt="Imagem do prato" />
+                        <div  className="container">
+                            <img onClick={() => handleDetails(data.id)}  src={image} alt="Imagem do prato" />
                            
-                                <h3  className="disheName">{name} </h3>
+                                <h3 onClick={() => handleDetails(data.id)}  className="disheName">{name} </h3>
                 
-                            <p className="description">{description}</p>
-                            <h1   className="price">R${price}</h1>
+                            <p onClick={() => handleDetails(data.id)} className="description">{description}</p>
+                            <h1 onClick={() => handleDetails(data.id)} className="price">R${price}</h1>
 
                             <PurchaseCard>
                                 <div className="counter">
@@ -148,6 +159,7 @@ export function Card({ data, image, description, name, price,  ...rest }) {
                                 <Button 
                                     title="incluir"
                                     icon={BsReceipt}
+                                    onClick={() => AddToCart(data.id)}
                                     style={ { height: 56, width: 92, padding: '12px 4px' } }
                                 />
                             </PurchaseCard>

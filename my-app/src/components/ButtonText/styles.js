@@ -5,12 +5,18 @@ export const Container = styled.button`
     align-items: center;
     text-align: end;
     
-    font-size: 1.6rem;
+    color: ${({ theme }) => theme.COLORS.WHITE};
+    font-size: 2.5rem;
     font-family: 'Poppins', sans-serif;
     
     border: none;
     gap: 0.8rem;
 
     background: none;
-    color: ${({ theme }) => theme.COLORS.WHITE};
+
+
+  &.color{
+      font-size: 1.5rem;
+      color: ${({ theme }) => theme.COLORS.RED};
+  }
 `;
