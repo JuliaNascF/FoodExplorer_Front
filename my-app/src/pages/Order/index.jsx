@@ -32,6 +32,7 @@ export function Order() {
     const [num, setNum] = useState('');
     const [cvc, setCvc] = useState('');
     const [cartItems, setCartItems] = useState([]);
+    const [total, setTotal] = useState(0);
 
     const navigate = useNavigate();
 
@@ -40,6 +41,7 @@ export function Order() {
             try {
                 const response = await api.get("/cart");
                 setCartItems(response.data.cartItems);
+                setTotal(response.data.total);
             } catch (error) {
 
             }
@@ -52,6 +54,8 @@ export function Order() {
         try {
           await api.delete(`/cart/${id}`);
           setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== id));
+          const response = await api.get("/cart");
+          setTotal(response.data.total);
         } catch (error) {
           console.log(error);
         }
@@ -171,14 +175,13 @@ export function Order() {
                                     <CardOrder
                                         key={item.id}
                                         data={item}
-                                        quantity={item.quantity}
                                         onRemove={removeOrder} 
                                     />
                                 ))}
                             </div>
 
 
-                            <h3>Total: R$<span></span></h3>
+                            <h3>Total: <span>{total}</span></h3>
 
                         </div>
 

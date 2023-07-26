@@ -4,7 +4,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-self: flex-start;
-    
+    margin-bottom: 2rem;
     width: 40rem;
     max-height: 48rem;
 
@@ -31,8 +31,12 @@ export const Container = styled.div`
             font-weight: 400;
         }
 
-    img {
-        width: 7.2rem;
-        height: 7.2rem;
-    }
+  
+    img{
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    object-fit: cover
+  }
+    
 `;

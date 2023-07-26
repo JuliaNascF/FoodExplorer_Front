@@ -19,7 +19,7 @@ export function Card({ data, image, description, name, price,  ...rest }) {
     function handleDetails(id) {
         navigate(`/details/${id}`)
       }
-    
+  
     const increase = () => {
         if (quantity > 19) {
             alert("Erro: A quantidade máxima é de 20 unidades")
@@ -50,54 +50,49 @@ export function Card({ data, image, description, name, price,  ...rest }) {
       setIsFavorite(true);
       try {
         const response = await api.post(`/favorites/${data.id}`);
-        console.log(response)
+       
       } catch (error) {
       }
     } else {
-    
     }
   }
 
   async function removeFromFavorites() {
-    if (user && user.id) {
       setIsFavorite(false);
       try {
        await api.delete(`/favorites/${data.id}`);
-       
       } catch (error) {
       }
-    } else {
-     
-    
-    }
+ 
   }
 
   useEffect(() => {
     async function checkFavoriteStatus() {
-      if (user && user.id) {
+ 
         try {
           const response = await api.get(`/favorites/check/${data.id}`);
           setIsFavorite(response.data.isFavorite);
         } catch (error) {
-        
-        }
       }
     }
-
     checkFavoriteStatus();
   }, [user, data.id]);
-
-  async function AddToCart(id, quantity) {
-      try {
-        await api.post(`/cart/${id}`, { quantity });
-        alert("Produto adicionado ao carrinho!");
-       
-      } catch (error) {
-        alert("Erro ao adicionar produto ao carrinho!");
-       
-      }
-  }
   
+  async function AddToCart(id) {
+    try {
+      const response = await api.get(`/cart/check/${id}`);
+      const isAlreadyInCart = response.data.isInCart;
+      if (isAlreadyInCart) {
+        alert("O prato já está incluso no pedido!");
+      } else {
+        await api.post(`/cart/${id}`, { quantity });
+        alert("Prato adicionado ao pedido!");
+      }
+    } catch (error) {
+      alert("Erro ao adicionar produto ao carrinho!");
+    }
+  }
+
     return (
         <Container {...rest}>
             {
@@ -105,6 +100,7 @@ export function Card({ data, image, description, name, price,  ...rest }) {
 
                     <Content>
                         <div className="container">
+                          
                             <img onClick={() => handleDetails(data.id)} src={image} alt="Imagem do prato" />
                            
                                 <h3 onClick={() => handleDetails(data.id)} className="disheName">{name}</h3>
@@ -116,7 +112,6 @@ export function Card({ data, image, description, name, price,  ...rest }) {
                                     title="editar prato"
                                     icon={BsReceipt}
                                 />
-                        
                         </div>
                     </Content>
 

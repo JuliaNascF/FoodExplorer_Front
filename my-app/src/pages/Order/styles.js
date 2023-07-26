@@ -56,6 +56,7 @@ export const Content = styled.div`
         
         .order-wrapper{
            margin-right: 10rem;
+        
         }
 
         .details {

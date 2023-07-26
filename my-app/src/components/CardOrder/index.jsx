@@ -11,7 +11,7 @@ export function CardOrder({data,quantity, onRemove}) {
                 <img src={data.image} alt="Imagem do Prato" />
                 
                 <div>
-                    <p><strong>{quantity} x </strong>{data.name}<span>R${data.price}</span></p>
+                    <p><strong>{data.quantity} x </strong>{data.name}<span>R${data.price}</span></p>
                     <ButtonText color onClick={() => onRemove(data.id)}
                         title="Excluir"
                        
