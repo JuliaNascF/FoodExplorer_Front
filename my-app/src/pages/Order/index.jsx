@@ -5,12 +5,11 @@ import { Footer } from "../../components/Footer";
 import { CardOrder } from "../../components/CardOrder";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button"
-
+import { ButtonText } from "../../components/ButtonText";
 import { api } from "../../services/api";
-import { useAuth } from "../../hooks/auth";
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-
+import { FiArrowLeft } from 'react-icons/fi'
 import { BsReceipt } from 'react-icons/bs';
 import pix from '../../assets/pix.svg';
 import creditCard from '../../assets/CreditCard.svg';
@@ -18,8 +17,9 @@ import qrCode from '../../assets/qrcode 1.svg';
 import clock from '../../assets/Clock.svg';
 import checkCircle from '../../assets/CheckCircle.svg';
 
+
 export function Order() {
-    const { user } = useAuth()
+
     const [loading, setLoading] = useState(false);
     const [isPixVisible, setIsPixVisible] = useState(false);
     const [isCreditVisible, setIsCreditVisible] = useState(false);
@@ -33,6 +33,7 @@ export function Order() {
     const [cvc, setCvc] = useState('');
     const [cartItems, setCartItems] = useState([]);
     const [total, setTotal] = useState(0);
+    const [orderId, setOrderId] = useState(null);
 
     const navigate = useNavigate();
 
@@ -50,6 +51,26 @@ export function Order() {
         fetchCartItems();
     }, []);
 
+    function handleCreatedOrder() {
+        return {
+            orderStatus: '🔴 Pendente',
+            payment_method: pixActive ? 'pix' : 'creditCard',
+            total_amount: total,
+            items: JSON.stringify(cartItems.map(item => ({
+                id: item.id,
+                dish_id: item.id, // Use o id do prato ou a propriedade correta do item
+                quantity: item.quantity, // Use a quantidade correta do item
+                date: item.date, // Use a data correta do item
+                user_id: item.user_id, // Use o user_id correto do item
+                name: item.name,
+              })))
+            
+            
+          
+        };
+    }
+    
+
     async function removeOrder(id) {
         try {
           await api.delete(`/cart/${id}`);
@@ -61,49 +82,41 @@ export function Order() {
         }
       }
 
-    function handleCreatedOrder() {
-        return {
-            orderStatus: '🔴 Pendente',
-            paymentMethod: pixActive ? 'pix' : 'creditCard',
 
-        }
-    }
-
+    function handleBack() {
+        navigate(-1);
+      }
+    
     async function handleFinishPayment() {
         if (!pixActive && num.length < 16) {
             alert("Erro: Número de cartão incompleto!");
             return;
         }
 
-        if (!pixActive) {
-            return alert("Erro: Validade do cartão incompleta!");
-        }
-
+      
         if (!pixActive && cvc.length < 3) {
             return alert("Erro: CVC do cartão incompleto!");
         }
 
         setLoading(true);
 
-        await api.post("/orders",)
-            .then(() => {
-                disableButton();
-                setTimeout(() => {
-
-                    alert("Pedido cadastrado com sucesso!");
-                    navigate(-1);
-
-
-
-                }, 7000);
-            })
-            .catch(error => {
-                if (error.response) {
-                    alert(error.response.data.message);
-                } else {
-                    alert("Não foi possível cadastrar");
-                }
-            });
+        try {
+            const orderData = handleCreatedOrder(); 
+            const { data: orderId } = await api.post("/orders", orderData); 
+            setOrderId(orderId); 
+            disableButton();
+            
+            setTimeout(() => {
+                alert("Pedido cadastrado com sucesso!");
+                navigate(-1);
+            }, 7000);
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data.message);
+            } else {
+                alert("Não foi possível cadastrar");
+            }
+        }
 
         setLoading(false);
     }
@@ -145,7 +158,6 @@ export function Order() {
         setIsClockActive(true);
         setIsApprovedActive(false);
         setTimeout(() => {
-            // Elements that will be changed
             setIsClockActive(false);
             setIsApprovedActive(true);
 
@@ -157,15 +169,9 @@ export function Order() {
         <Container>
             <Header />
 
-            {
-                user.isAdmin ?
-
-                    <h1>erro</h1>
-
-                    :
+            <ButtonText onClick={handleBack}  icon={FiArrowLeft} />
 
                     <Content>
-
 
 
                         <div className="order-wrapper">
@@ -221,6 +227,7 @@ export function Order() {
                                             title={loading ? "Finalizando pagamento" : "Finalizar pagamento"}
                                             disabled={loading}
                                             icon={BsReceipt}
+                                            onClick={handleFinishPayment}
                                             style={{ height: 56 }}
                                             className="finishPaymentButton"
 
@@ -272,6 +279,7 @@ export function Order() {
                                             title={loading ? "Finalizando pagamento" : "Finalizar pagamento"}
                                             disabled={loading}
                                             icon={BsReceipt}
+                                            onClick={handleFinishPayment}
                                             style={{ height: 56 }}
                                             className="finishPaymentButton"
 
@@ -298,7 +306,7 @@ export function Order() {
                         </PaymentCard>
 
                     </Content>
-            }
+            
             <Footer />
         </Container>
 

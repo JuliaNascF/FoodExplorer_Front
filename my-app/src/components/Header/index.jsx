@@ -21,6 +21,11 @@ export function Header({search, favoritesFilter}) {
     function handleOrder(){
         navigate("/order")
     }
+
+    function handleHistory(){
+        navigate("/history")
+    }
+  
   
     return (
         <Container>
@@ -55,7 +60,7 @@ export function Header({search, favoritesFilter}) {
                     </Search>
 
                     <p onClick={handleFavorites} >Meus favoritos</p>
-                    <p>Histórico de Pedidos</p>
+                    <p onClick={handleHistory}>Histórico de Pedidos</p>
                      
                      <div className="button">
                     

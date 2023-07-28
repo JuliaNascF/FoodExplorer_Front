@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+   position: relative;
     display: flex;
     flex-direction: column;
     min-width: 32rem;
@@ -13,6 +14,11 @@ export const Container = styled.div`
     "content"
     "footer";
     
+    >button{
+        position: absolute;
+        top: 14rem;
+        left: 30rem;
+    }
   `;
     
     
