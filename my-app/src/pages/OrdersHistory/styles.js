@@ -1,15 +1,29 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+    position: relative;
     display: flex;
     flex-direction: column;
-    
+    min-width: 32rem;
     width: 100%;
-    min-width: 320px;
-    min-height: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 10.5rem auto 8rem;
+    grid-template-areas:
+    "header"
+    "content";
     
-    overflow: auto;
-    overflow: overlay;  
+    >button{
+        position: absolute;
+        top: 14rem;
+        left: 30rem;
+    }
+  
+    >h1{
+        position:absolute;
+        left:35rem;
+        top: 15rem;
+    }
 
     footer {
         position: absolute;
@@ -20,10 +34,15 @@ export const Container = styled.div`
 export const Content = styled.div`
     display: flex;
     flex-direction: column;
+    grid-area: content;
+    padding-top: 6rem;
+    overflow: auto;
+    overflow: overlay;
     
-    width: 100%;
-    max-width: 121.2rem;
-    margin: auto;
+    justify-content:center;
+    align-items: center;
+
+   
     padding: 3.5rem 4rem;
 
     .zeroOrders {
@@ -38,10 +57,15 @@ export const Content = styled.div`
         font-weight: bold;
         font-size: 3rem;
     }
+
+   
 `;
 
 export const Table = styled.div`
+  
+        
     table {
+
         display: block;
         overflow: auto;
         overflow: overlay;
@@ -55,8 +79,18 @@ export const Table = styled.div`
         border-radius: 0.8rem;
         border-collapse: collapse;
 
-        -webkit-box-shadow: 0px 0px 10px 5px #193746; 
-        box-shadow: 0px 0px 10px 5px #193746;
+        &::-webkit-scrollbar {
+          width: 22px;     
+    }
+    
+      
+     &::-webkit-scrollbar-thumb {
+       background-color: transparent;
+       border-radius: 80px;
+       box-shadow: inset 0 0 0px 6px ${({ theme }) => theme.COLORS.BLUE};
+       border: solid 10px transparent;
+    }
+    
     }
 
     table * {

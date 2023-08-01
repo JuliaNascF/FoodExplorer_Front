@@ -71,7 +71,7 @@ export function Favorites() {
               key={favorite._id}
               >
                 <img  onClick={() => handleDetails(favorite.id)} src={favorite.image} alt="" />
-                <div className="detailsDishe">
+                <div className="detailsDish">
                 <h1>{favorite.name} </h1>
                  <ButtonText color title="Remover dos Favoritos" onClick={() => removeFromFavorites(favorite.id)}/>
                 </div>

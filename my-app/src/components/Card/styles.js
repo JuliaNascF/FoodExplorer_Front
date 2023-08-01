@@ -31,9 +31,18 @@ export const Content = styled.div`
     .container {
         cursor:pointer;
         display: grid;
-        padding: 3.8rem 2.6rem;
+        padding: 3rem 2.6rem;
         text-align: center;
         align-items: center;
+
+        .pencil{
+        position: absolute;
+        top: 1.2rem;
+        right: 1.2rem;
+        background: transparent;
+        border: none;
+        font-size: 1rem;
+        }
 
         > img {
             cursor:pointer;

@@ -41,8 +41,8 @@ export const Content = styled.div`
     .back{
     display: flex;
     gap: 5px;
-    margin-left: 15rem;
-    margin-top: 3rem;
+    margin-left: 35rem;
+    margin-top: 49rem;
 
     h3{
       font-size:25px;
@@ -81,7 +81,7 @@ export const Content = styled.div`
     gap: 10px;
     
 
-    .detailsDishe{
+    .detailsDish{
       display: flex;
       flex-direction: column;
     }

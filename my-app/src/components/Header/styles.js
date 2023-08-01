@@ -204,7 +204,7 @@ export const Search = styled.div`
 export const Logout = styled.div`
     display: flex;
     align-self: center;
-    
+    cursor: pointer;
     border: none;
     background: none;
     

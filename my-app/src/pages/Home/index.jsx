@@ -32,23 +32,23 @@ export function Home() {
     fetchDishes();
   }, []);
 
-  const refeicoesProductContainerRef = useRef(null);
-  const sobremesaProductContainerRef = useRef(null);
-  const bebidaProductContainerRef = useRef(null);
+  const dishProductContainerRef = useRef(null);
+  const dessertProductContainerRef = useRef(null);
+  const drinkProductContainerRef = useRef(null);
 
   const scrollLeft = (category) => {
-    if (category === 'refeicao') {
-      refeicoesProductContainerRef.current.scrollBy({
+    if (category === 'dish') {
+      dishProductContainerRef.current.scrollBy({
         left: -260,
         behavior: "smooth",
       });
-    } else if (category === 'sobremesa') {
-      sobremesaProductContainerRef.current.scrollBy({
+    } else if (category === 'dessert') {
+      dessertProductContainerRef.current.scrollBy({
         left: -260,
         behavior: "smooth",
       });
-    } else if (category === 'bebida') {
-      bebidaProductContainerRef.current.scrollBy({
+    } else if (category === 'drink') {
+      drinkProductContainerRef.current.scrollBy({
         left: -260,
         behavior: "smooth",
       });
@@ -56,18 +56,18 @@ export function Home() {
   };
 
   const scrollRight = (category) => {
-    if (category === 'refeicao') {
-      refeicoesProductContainerRef.current.scrollBy({
+    if (category === 'dish') {
+      dishProductContainerRef.current.scrollBy({
         left: 260,
         behavior: "smooth",
       });
-    } else if (category === 'sobremesa') {
-      sobremesaProductContainerRef.current.scrollBy({
+    } else if (category === 'dessert') {
+      dessertProductContainerRef.current.scrollBy({
         left: 260,
         behavior: "smooth",
       });
-    } else if (category === 'bebida') {
-      bebidaProductContainerRef.current.scrollBy({
+    } else if (category === 'drink') {
+      drinkProductContainerRef.current.scrollBy({
         left: 260,
         behavior: "smooth",
       });
@@ -93,11 +93,11 @@ export function Home() {
           <p>Refeições</p>
            
            <Category> 
-          <ButtonText icon={MdOutlineArrowBackIosNew} onClick={() => scrollLeft('refeicao')} />
+          <ButtonText icon={MdOutlineArrowBackIosNew} onClick={() => scrollLeft('dish')} />
 
-          <div className="card" style={{ display: "flex", scrollBehavior: "smooth" }} ref={refeicoesProductContainerRef}>
+          <div className="card" style={{ display: "flex", scrollBehavior: "smooth" }} ref={ dishProductContainerRef}>
             {dishes
-              .filter((card) => card.category === "refeicao")
+              .filter((card) => card.category === "dish")
               .map((card) => (
                 <Card
                   key={card.id}
@@ -111,17 +111,17 @@ export function Home() {
           </div>
 
 
-          <ButtonText icon={MdOutlineArrowForwardIos} onClick={() => scrollRight('refeicao')} />
+          <ButtonText icon={MdOutlineArrowForwardIos} onClick={() => scrollRight('dish')} />
           </Category>
 
 
           <p>Sobremesas</p>
           <Category> 
-          <ButtonText icon={MdOutlineArrowBackIosNew} onClick={() => scrollLeft('sobremesa')} />
+          <ButtonText icon={MdOutlineArrowBackIosNew} onClick={() => scrollLeft('dessert')} />
 
-          <div className="card" style={{ display: "flex", scrollBehavior: "smooth" }} ref={sobremesaProductContainerRef}>
+          <div className="card" style={{ display: "flex", scrollBehavior: "smooth" }} ref={dessertProductContainerRef}>
             {dishes
-              .filter((card) => card.category === "sobremesa")
+              .filter((card) => card.category === "dessert")
               .map((card) => (
                 <Card
                   key={card.id}
@@ -135,17 +135,17 @@ export function Home() {
           </div>
 
 
-          <ButtonText icon={MdOutlineArrowForwardIos} onClick={() => scrollRight('sobremesa')} />
+          <ButtonText icon={MdOutlineArrowForwardIos} onClick={() => scrollRight('dessert')} />
           </Category>
 
 
           <p>Bebidas</p>
           <Category> 
-          <ButtonText icon={MdOutlineArrowBackIosNew} onClick={() => scrollLeft('bebida')} />
+          <ButtonText icon={MdOutlineArrowBackIosNew} onClick={() => scrollLeft('drink')} />
 
-          <div className="card" style={{ display: "flex", scrollBehavior: "smooth" }} ref={bebidaProductContainerRef}>
+          <div className="card" style={{ display: "flex", scrollBehavior: "smooth" }} ref={drinkProductContainerRef}>
             {dishes
-              .filter((card) => card.category === "bebida")
+              .filter((card) => card.category === "drink")
               .map((card) => (
                 <Card
                   key={card.id}
@@ -159,7 +159,7 @@ export function Home() {
           </div>
 
 
-          <ButtonText icon={MdOutlineArrowForwardIos} onClick={() => scrollRight('bebida')} />
+          <ButtonText icon={MdOutlineArrowForwardIos} onClick={() => scrollRight('drink')} />
           </Category>
 
         </Content>

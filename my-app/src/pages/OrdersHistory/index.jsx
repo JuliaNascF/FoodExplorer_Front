@@ -5,10 +5,12 @@ import { Footer } from "../../components/Footer";
 import { api } from '../../services/api';
 import { useAuth } from "../../hooks/auth";
 import { useEffect, useState } from 'react';
+import { format } from 'date-fns';
 
 export function OrdersHistory() {
     const { user } = useAuth()
     const [orders, setOrders] = useState([]);
+   
 
     useEffect(() => {
         async function fetchOrders() {
@@ -23,34 +25,40 @@ export function OrdersHistory() {
         fetchOrders();
     }, []);
 
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const formattedDate = format(date, 'dd/MM');
+        const formattedTime = format(date, 'HH:mm');
+        return `${formattedDate} às ${formattedTime}h`;
+      }
+
     const parseItems = (items) => {
         try {
-            // Check if items is null or not a string
+         
             if (!items || typeof items !== 'string') {
                 return [];
             }
 
-            // Try parsing items as an array of objects
             const parsedItems = JSON.parse(items);
 
-            // Check if parsedItems is an array
+        
             if (Array.isArray(parsedItems)) {
                 return parsedItems;
             } else {
-                // If parsedItems is not an array, return an array with the single object
+              
                 return [parsedItems];
             }
         } catch (error) {
-            // Return an empty array if parsing fails
+     
             return [];
         }
     };
     return (
         <Container>
             <Header />
+                <h1> Histórico de Pedidos</h1>
             <Content>
 
-                <h1>Pedidos</h1>
 
                 <Table>
                     <table>
@@ -105,7 +113,7 @@ export function OrdersHistory() {
                                                         </span>
                                                   
                                                 </td>
-                                                <td>{order.date}</td>
+                                                <td>{formatDate(order.date)}</td>
                                             </tr>
                                         ))
                                     }
@@ -127,7 +135,7 @@ export function OrdersHistory() {
                                                     ))}
                                                 </span>
                                                 </td>
-                                                <td>{order.date}</td>
+                                                <td>{formatDate(order.date)}</td>
                                             </tr>
                                         ))
                                     }

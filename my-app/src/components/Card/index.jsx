@@ -6,6 +6,7 @@ import { useAuth } from "../../hooks/auth";
 import { api } from '../../services/api.js';
 import { useState, useEffect } from "react";
 import { BsReceipt } from 'react-icons/bs';
+import pencil from '../../assets/pencil.svg'
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom';
@@ -100,6 +101,10 @@ export function Card({ data, image, description, name, price,  ...rest }) {
 
                     <Content>
                         <div className="container">
+                            <div className="pencil">
+                            <img  src={pencil} alt="Icone para editar" />
+
+                            </div>
                           
                             <img onClick={() => handleDetails(data.id)} src={image} alt="Imagem do prato" />
                            
@@ -108,10 +113,6 @@ export function Card({ data, image, description, name, price,  ...rest }) {
                             <p onClick={() => handleDetails(data.id)} className="description">{description}</p>
                             <h1 onClick={() => handleDetails(data.id)} className="price">R${price}</h1>
                           
-                                <Button
-                                    title="editar prato"
-                                    icon={BsReceipt}
-                                />
                         </div>
                     </Content>
 
