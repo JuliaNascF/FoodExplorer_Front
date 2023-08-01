@@ -20,6 +20,11 @@ export function Card({ data, image, description, name, price,  ...rest }) {
     function handleDetails(id) {
         navigate(`/details/${id}`)
       }
+
+
+    function handleEdit(id) {
+      navigate(`/edition/${id}`)
+    }
   
     const increase = () => {
         if (quantity > 19) {
@@ -102,7 +107,7 @@ export function Card({ data, image, description, name, price,  ...rest }) {
                     <Content>
                         <div className="container">
                             <div className="pencil">
-                            <img  src={pencil} alt="Icone para editar" />
+                            <img onClick={() => handleEdit(data.id)}  src={pencil} alt="Icone para editar" />
 
                             </div>
                           

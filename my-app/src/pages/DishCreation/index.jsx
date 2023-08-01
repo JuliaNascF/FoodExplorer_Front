@@ -109,8 +109,6 @@ export function DishCreation( ) {
     return(
                 <Container>
                     <Header />
-
-
                                 <Content>
 
 
@@ -119,7 +117,7 @@ export function DishCreation( ) {
                                         <Link to="/">
                                             <ButtonText title="Voltar" icon={RiArrowLeftSLine}/>
                                         </Link>
-                                        <h1>Criar prato</h1>
+                                        <h1>Adicionar prato</h1>
                                     </header>
 
                                     <div className="details">
@@ -145,6 +143,17 @@ export function DishCreation( ) {
                                                 type="text"
                                                 onChange={e => setName(e.target.value)}
                                             />
+                                        </div>
+
+                                        <div className="dishCategory">
+                                            <p>Categoria</p>
+
+                                            <select defaultValue={'default'} onChange={e => setCategory(e.target.value)}>
+                                                <option value="default" disabled>Selecione a categoria</option>
+                                                <option value="dish">Prato</option>
+                                                <option value="drink">Bebida</option>
+                                                <option value="dessert">Sobremesa</option>
+                                            </select> 
                                         </div>
                                     </div>
 
@@ -173,16 +182,7 @@ export function DishCreation( ) {
                                             </div>
                                         </div>
 
-                                        <div className="dishCategory">
-                                            <p>Categoria</p>
-
-                                            <select defaultValue={'default'} onChange={e => setCategory(e.target.value)}>
-                                                <option value="default" disabled>Selecione a categoria</option>
-                                                <option value="dish">Prato</option>
-                                                <option value="drink">Bebida</option>
-                                                <option value="dessert">Sobremesa</option>
-                                            </select> 
-                                        </div>
+                                      
 
                                         <div className="price">
                                             <p>Preço</p>

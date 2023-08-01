@@ -4,7 +4,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     
-
+ 
     min-width: 320px;
     min-height: 100%;
     width: 100%;
@@ -14,12 +14,11 @@ export const Container = styled.div`
     grid-template-areas:
     "header"
     "content"
-    "footer";
-  
+    "footer";   
 `;
 
 export const Content = styled.div`
- grid-area: content;
+grid-area: content;
     display: flex;
     flex-direction: column;
     
@@ -36,7 +35,14 @@ export const Content = styled.div`
         display: flex;
         justify-content: center;
         margin-top: 3.2rem;
+        gap: 2rem;
+        white-space: nowrap;
     }
+
+    .deleteButton {
+        background: ${({ theme }) => theme.COLORS.RED};
+    }
+    
 
     @media only screen and (min-width: 768px) {
         .button {
@@ -46,12 +52,56 @@ export const Content = styled.div`
     }
 `;
 
+export const Image = styled.div`
+
+    position: relative;
+    margin: 0 3rem 3rem;
+    
+    > img {
+        width: 18.6rem;
+        height: 18.6rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid ${({ theme }) => theme.COLORS.BLUE};
+    }
+    
+    > label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        position: absolute;
+        bottom: 0.7rem;
+        right: 0.7rem;
+        
+        width: 4.8rem;
+        height: 4.8rem;
+        
+        background-color: ${({ theme }) => theme.COLORS.BLUE_500};
+        border-radius: 50%;
+        border: 3px solid ${({ theme }) => theme.COLORS.BLUE};
+
+        cursor: pointer;
+
+        input {
+            display: none;
+        }
+
+        svg {
+            width: 2rem;
+            height: 2rem;
+            color: ${({ theme }) => theme.COLORS.BLUE};
+        }
+    }
+
+    > label:hover {
+        background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+    }
+`;
+
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
-    
-
-    gap: 3.2rem;
 
     h1 {
         font-family: 'Poppins', sans-serif;
@@ -60,7 +110,7 @@ export const Form = styled.form`
         line-height: 4.5rem;
         text-align: center;
         
-        margin: 2.4rem 0 0;
+        margin: 2.4rem 0 2.4rem;
     }
 
     button:first-child {
@@ -78,36 +128,61 @@ export const Form = styled.form`
 
     .details {
         display: flex;
-        width: auto;
+        flex-direction: column;
+        align-items: center;
+
+        width: 100%;
         gap: 3.2rem;
     }
-    
+
+    .dish {
+        width: 50%;
+        align-items: center;
+    }
+
+    .dishName {
+        display: flex;
+        gap: 3rem;
+    }
+
+    .dishIngredients {
+        display: flex;
+        gap: 3rem;
+        justify-content: space-between;
+    }
+
+    .dishDetails {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 5rem;
+    }
 
     .dishCategory select {
-    background: ${({ theme }) => theme.COLORS.BLUE_300};
+        background: ${({ theme }) => theme.COLORS.BLUE_300};
 
-    border-radius: 0.5rem;
-    border: none;
-    border: 1px solid ${({ theme }) => theme.COLORS.WHITE};
+        border-radius: 0.5rem;
+        border: none;
+        border: 1px solid ${({ theme }) => theme.COLORS.WHITE};
 
-    height: 4.8rem;
-    width: 100%;
+        height: 4.8rem;
+        width: 100%;
 
-    padding: 12px;
+        padding: 12px;
 
-    font-size: 16px;
+        font-size: 16px;
 
-    line-height: 26px;
+        line-height: 26px;
 
-    color: ${({ theme }) => theme.COLORS.GRAY_100};
-
+        color: ${({ theme }) => theme.COLORS.GRAY_100};
     }
 
     .dishImage {
         display: flex;
         flex-direction: column;
+        align-items: center;
         
-        width: 50%;
+        width: 25rem;
 
         input[type='file'] {
         display: none;
@@ -135,6 +210,10 @@ export const Form = styled.form`
         > label:hover {
             background-color: ${({ theme }) => theme.COLORS.BLUE};
         }
+
+        p {
+            text-align: center;
+        }
     }
 
     .ingredients {
@@ -148,7 +227,7 @@ export const Form = styled.form`
         
         border-radius: 0.8rem;
         margin-bottom: 3.2rem;
-        border: 1px solid white;
+        border: 1px solid ${({ theme }) => theme.COLORS.WHITE};
     }
 
     .ingredientsTag { 
@@ -156,7 +235,7 @@ export const Form = styled.form`
     }
 
     .price {
-        max-width: 15rem;
+        max-width: 24rem;
     }
 
     @media only screen and (min-width: 768px) {
@@ -175,8 +254,8 @@ export const Form = styled.form`
         }
 
         > .details {
-            display: flex;
-            justify-content: space-between;
+            flex-direction: row;
+            align-items: flex-start;
         }
 
         .ingredients {
@@ -184,8 +263,9 @@ export const Form = styled.form`
             flex-wrap: wrap;
             align-content: center;
             
-            width: 100%;
+
             max-width: 83.7rem;
+            width: 100%;
             height: auto;
             padding: 0.8rem;
             margin-bottom: 0;
@@ -201,7 +281,6 @@ export const Form = styled.form`
         }
 
         .price {
-            max-width: 25.1rem;
             width: 100%;
         }
     }
