@@ -61,6 +61,21 @@ export function Details() {
         fetchDishDetail();
     }, []);
 
+    async function AddToCart(id) {
+        try {
+          const response = await api.get(`/cart/check/${id}`);
+          const isAlreadyInCart = response.data.isInCart;
+          if (isAlreadyInCart) {
+            alert("O prato já está incluso no pedido!");
+          } else {
+            await api.post(`/cart/${id}`, { quantity });
+            alert("Prato adicionado ao pedido!");
+          }
+        } catch (error) {
+          alert("Erro ao adicionar produto ao carrinho!");
+        }
+      }
+
     return (
 
         <Container>
@@ -128,6 +143,7 @@ export function Details() {
                                         </div>
 
                                         <Button
+                                             onClick={() => AddToCart(data.id)}
                                             title="incluir"
                                             icon={BsReceipt}
 

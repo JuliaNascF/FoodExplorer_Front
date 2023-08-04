@@ -14,26 +14,32 @@ export const Container = styled.div`
     "content"
     "footer";
     
-    >button{
-        position: absolute;
-        top: 14rem;
-        left: 30rem;
-    }
-  `;
+
+    
+    `;
     
     
-export const Content = styled.div`
+    export const Content = styled.div`
     display: flex;
     flex-direction: column;
     grid-area: content;
-    padding-top: 6rem;
-    overflow: auto;
-    overflow: overlay;
-
+    width: 100vw;
+    max-width: 121.2rem;
+    height: 100%;
+    margin: auto;
+    padding: 3.5rem 4rem;
+    
     justify-content:center;
     align-items: center;
     text-align: center;
-
+    
+    .back{
+    display: flex;
+    gap: 5px;
+    >h3{
+      font-size:25px;
+    }
+  }
     &::-webkit-scrollbar {
           width: 22px;     
     }
@@ -46,14 +52,21 @@ export const Content = styled.div`
        border: solid 10px transparent;
     }
 
-
+  
      h2 {
         font-weight: 500;
         font-size: 3.2rem;
         font-family: 'Poppins', sans-serif;
-        margin-bottom: 3.2rem;
+        margin-bottom: 3rem;
+        margin-top: 3.5rem;
         justify-content: center;
     }
+      
+    .details{
+        margin-top:3rem;
+    
+    }
+      
 
     @media only screen and (min-width: 768px) {
         flex-direction: row;
@@ -87,7 +100,7 @@ export const PaymentCard = styled.div`
     margin: 0 3rem;
 
     max-width: 53.0rem;
-
+    
     .paymentHeader {
         .buttons {
             display: flex;

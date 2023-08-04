@@ -8,6 +8,7 @@ import { Order } from "../pages/Order";
 import { OrdersHistory } from "../pages/OrdersHistory";
 import { DishCreation } from "../pages/DishCreation";
 import { DishEdition } from "../pages/DishEdition";
+
 export function AppRoutes() {
     return (
         <Routes>

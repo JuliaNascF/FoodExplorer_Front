@@ -1,4 +1,3 @@
-// Styling Imports
 import { Container, Content, Banner, Category } from "./styles.js";
 
 import { Header } from "../../components/Header";
@@ -73,6 +72,7 @@ export function Home() {
       });
     }
   };
+  
 
   return (
     <Container>
@@ -168,4 +168,4 @@ export function Home() {
     </Container>
 
   );
-}
+ }

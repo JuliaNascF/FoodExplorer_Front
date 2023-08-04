@@ -80,9 +80,9 @@ export function Header({ search, favoritesFilter }) {
 
                     </div>
 
-                    <Logout onClick={signOut}>
+                    <Logout >
 
-                        <FiLogOut />
+                        <FiLogOut onClick={signOut} />
                     </Logout>
 
 

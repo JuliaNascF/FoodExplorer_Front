@@ -2,8 +2,6 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     position: relative;
-    display: flex;
-    flex-direction: column;
     min-width: 32rem;
     width: 100%;
     height: 100vh;
@@ -12,22 +10,47 @@ export const Container = styled.div`
     grid-template-areas:
     "header"
     "content";
-    
-    >button{
-        position: absolute;
-        top: 14rem;
-        left: 30rem;
-    }
+
   
-    >h1{
-        position:absolute;
-        left:35rem;
-        top: 15rem;
+    .back{
+    position: absolute;
+    top: 14rem;
+    left: 10%;
+    display: flex;
+
+    gap: 5px;
+    >h3{
+      font-size:25px;
     }
+
+    @media only screen and (min-width: 1350px){
+    position: absolute;
+    left: 19%;
+    }
+  }
 
     footer {
         position: absolute;
         bottom: 0;
+    }
+
+    @media  only screen and (min-width: 768px) {
+        .desktop {
+            display: block;
+        }
+        .mobile {
+            display: none;
+        }
+    }
+
+    @media  only screen and (max-width: 767px) {
+        .desktop {
+            display: none;
+        }
+        .mobile {
+            display: flex;
+            flex-direction: column;
+        }
     }
 `;
 
@@ -36,14 +59,11 @@ export const Content = styled.div`
     flex-direction: column;
     grid-area: content;
     padding-top: 6rem;
-    overflow: auto;
-    overflow: overlay;
-    
-    justify-content:center;
-    align-items: center;
+    max-width: 121.2rem;
+    margin: 4rem auto;
 
    
-    padding: 3.5rem 4rem;
+    padding: 3rem 4rem;
 
     .zeroOrders {
         justify-content: center;
@@ -58,11 +78,11 @@ export const Content = styled.div`
         font-size: 3rem;
     }
 
-   
+  
 `;
 
 export const Table = styled.div`
-  
+
         
     table {
 
@@ -154,8 +174,29 @@ export const Table = styled.div`
         background: ${({ theme }) => theme.COLORS.BACKGROUND_900};
 
         border-radius: 0.8rem;
-        border: 1px solid ${({ theme }) => theme.COLORS.WHITE};
+     
 
         padding: 1.3rem 1.6rem;
+
     }
+`;
+
+export const Order = styled.div`
+
+
+    border: 2px solid ${({ theme }) => theme.COLORS.BLUE_300};
+       border-radius: 0.8rem;
+       padding: 2rem 3rem;
+       width: 100%;
+       display:flex;
+       flex-direction: column;
+       gap: 2rem;
+       margin-top:2rem;
+    .details{
+      display: flex;
+      gap: 2rem;
+    }
+
+
+     
 `;

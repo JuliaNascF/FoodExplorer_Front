@@ -33,7 +33,7 @@ export const Content = styled.div`
     white-space: nowrap;
     
     padding: 0 4rem;
-    gap: 3.2rem;
+    gap: 3rem;
     width: 121rem;
     height: 10.5rem;
     
@@ -68,7 +68,7 @@ export const Content = styled.div`
         justify-content: space-between;
         
         width: 100%;
-        gap: 3.2rem;
+        gap: 3rem;
 
         p{
             cursor: pointer;
@@ -102,7 +102,7 @@ export const Content = styled.div`
     
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1020px) {
         max-width: 768px;
 
         #order{

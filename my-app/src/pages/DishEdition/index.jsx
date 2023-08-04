@@ -35,7 +35,7 @@ export function DishEdition() {
     const [category, setCategory] = useState("");
     const [ingredients, setIngredients] = useState([]);
     const [newIngredient, setNewIngredient] = useState("");
- 
+
     const [data, setData] = useState(null);
     const [image, setImage] = useState();
     const [imageFile, setImageFile] = useState(null)
@@ -48,11 +48,11 @@ export function DishEdition() {
     function handleChangeImage(event) {
         const file = event.target.files[0];
         setImageFile(file);
-        
+
         const imagePreview = URL.createObjectURL(file);
         setImage(imagePreview);
     }
-  
+
     function handleAddIngredient() {
         if (newIngredient.length < 3) {
             return alert("Erro: Você está tentando inserir um nome de ingrediente inválido!");
@@ -68,7 +68,7 @@ export function DishEdition() {
 
     // Update Dish Function
     async function handleUpdateDish() {
-    
+
         if (!ingredients || ingredients.length === 0) {
             return alert("Erro: Adicione pelo menos um ingrediente!");
         }
@@ -140,23 +140,23 @@ export function DishEdition() {
     async function handleDeleteConfirmed() {
         setShowConfirmationModal(false);
         setLoadingDelete(true);
-      
+
         try {
-          await api.delete(`/dishes/${params.id}`);
-          alert("Item removido com sucesso!");
-          navigate("/");
+            await api.delete(`/dishes/${params.id}`);
+            alert("Item removido com sucesso!");
+            navigate("/");
         } catch (error) {
-          if (error.response) {
-            alert(error.response.data.message);
-          } else {
-            alert("Erro ao remover o prato!");
-          }
+            if (error.response) {
+                alert(error.response.data.message);
+            } else {
+                alert("Erro ao remover o prato!");
+            }
         }
-      
+
         setLoadingDelete(false);
-       
-      }
-    
+
+    }
+
     return (
 
         <Container>
@@ -278,7 +278,7 @@ export function DishEdition() {
 
                             </Form>
                         }
-                               
+
                         {showConfirmationModal && (
                             <div className="modal">
                                 <div className="modal-content">

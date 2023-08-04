@@ -3,8 +3,6 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    
-
     min-width: 320px;
     min-height: 100%;
     width: 100%;
@@ -15,7 +13,29 @@ export const Container = styled.div`
     "header"
     "content"
     "footer";
-  
+ 
+
+    overflow-y: auto;
+     
+    &::-webkit-scrollbar {
+        width: 22px;
+         
+  }
+    
+   &::-webkit-scrollbar-thumb {
+     background-color: transparent;
+     border-radius: 80px;
+     box-shadow: inset 0 0 0px 6px ${({ theme }) => theme.COLORS.BLUE};
+     border: solid 10px transparent;
+ }
+
+
+ @media only screen and (max-width: 768px) {
+    &::-webkit-scrollbar {
+display: none;
+
+}}
+    
 `;
 
 export const Content = styled.div`
@@ -29,9 +49,6 @@ export const Content = styled.div`
     margin: auto;
     padding: 3.5rem 4rem;
 
-    overflow: auto;
-    overflow: overlay;    
-    
     .button {
         display: flex;
         justify-content: center;
@@ -49,8 +66,6 @@ export const Content = styled.div`
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
-    
-
     gap: 3.2rem;
 
     h1 {
@@ -80,8 +95,14 @@ export const Form = styled.form`
         display: flex;
         width: auto;
         gap: 3.2rem;
+        @media only screen and (max-width: 768px) {
+        flex-direction:column;
+    }
     }
     
+    .dishCategory{
+        width: 100%;
+    }
 
     .dishCategory select {
     background: ${({ theme }) => theme.COLORS.BLUE_300};
@@ -93,7 +114,7 @@ export const Form = styled.form`
     height: 4.8rem;
     width: 100%;
 
-    padding: 12px;
+    padding: 10px;
 
     font-size: 16px;
 
@@ -107,8 +128,8 @@ export const Form = styled.form`
         display: flex;
         flex-direction: column;
         
-        width: 50%;
-
+        width: 100%;
+        
         input[type='file'] {
         display: none;
         }
@@ -141,22 +162,21 @@ export const Form = styled.form`
         display: flex;
         flex-wrap: wrap;
         align-content: center;
-        
         height: auto;
         gap: 2.4rem;
         padding: 0.8rem;
-        
+        width: 100%;
         border-radius: 0.8rem;
         margin-bottom: 3.2rem;
         border: 1px solid white;
     }
 
     .ingredientsTag { 
-        justify-content: space-between;
+        gap: 3rem;
     }
 
     .price {
-        max-width: 15rem;
+        width: 100%;
     }
 
     @media only screen and (min-width: 768px) {
@@ -167,24 +187,23 @@ export const Form = styled.form`
 
         .dishImage {
             max-width: 22.9rem;
+            width: 50%;
         }
 
         .dish {
-            max-width: 85.9rem;
-            width: 100%;
+            max-width: 85rem;
+            width: 40%;
         }
-
-        > .details {
-            display: flex;
-            justify-content: space-between;
-        }
+        
+        .dishCategory{
+        width: 30%;
+    }
 
         .ingredients {
             display: flex;
             flex-wrap: wrap;
             align-content: center;
             
-            width: 100%;
             max-width: 83.7rem;
             height: auto;
             padding: 0.8rem;
@@ -196,8 +215,7 @@ export const Form = styled.form`
 
         .ingredientsTag { 
             display: flex;
-            justify-content: space-between;
-            gap: 3.2rem;
+        
         }
 
         .price {

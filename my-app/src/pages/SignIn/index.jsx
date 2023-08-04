@@ -4,14 +4,15 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { useAuth } from "../../hooks/auth";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { signIn, loading } = useAuth();
-
-
-
+    
+    const navigate = useNavigate();
+    
     function handleSignIn() {
         signIn({ email, password })
           .then(() => {
@@ -26,7 +27,7 @@ export function SignIn() {
       }
       
       function handleSignUp(){
-    
+         navigate("/register")
       }
    
 

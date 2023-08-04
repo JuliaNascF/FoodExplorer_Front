@@ -2,13 +2,13 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     position: relative;
+  
 `;
 
 export const Content = styled.div`
     position: relative;
-
     width: 30rem;
-    height: 51.2rem;
+    height: ${(props) => props.isAdmin ? "46rem" : "51.2rem"};
     border-radius: 0.8rem;
     border: 1px solid rgba(0, 0, 0, 0.65);
     
@@ -30,11 +30,10 @@ export const Content = styled.div`
 
     .container {
         cursor:pointer;
-        display: grid;
-        padding: 3rem 2.6rem;
-        text-align: center;
+        display: flex;
+        flex-direction: column;
         align-items: center;
-
+        padding: 3rem;
         .pencil{
         position: absolute;
         top: 1.2rem;
@@ -65,6 +64,7 @@ export const Content = styled.div`
     }
     
     .description {
+        text-align: center;
         cursor:pointer;
         font-family: 'Roboto', sans-serif;
         font-size: 1.4rem;

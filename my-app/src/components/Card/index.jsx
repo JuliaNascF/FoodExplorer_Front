@@ -104,7 +104,7 @@ export function Card({ data, image, description, name, price,  ...rest }) {
             {
                 user.isAdmin ?
 
-                    <Content>
+                    <Content isAdmin={true} >
                         <div className="container">
                             <div className="pencil">
                             <img onClick={() => handleEdit(data.id)}  src={pencil} alt="Icone para editar" />

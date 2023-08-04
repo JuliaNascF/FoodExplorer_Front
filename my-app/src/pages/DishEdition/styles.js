@@ -15,6 +15,28 @@ export const Container = styled.div`
     "header"
     "content"
     "footer";   
+
+
+    overflow-y: auto;
+     
+    &::-webkit-scrollbar {
+        width: 22px;
+         
+  }
+    
+   &::-webkit-scrollbar-thumb {
+     background-color: transparent;
+     border-radius: 80px;
+     box-shadow: inset 0 0 0px 6px ${({ theme }) => theme.COLORS.BLUE};
+     border: solid 10px transparent;
+ }
+
+ @media only screen and (max-width: 768px) {
+    &::-webkit-scrollbar {
+display: none;
+
+}}
+    
 `;
 
 export const Content = styled.div`
@@ -22,14 +44,13 @@ grid-area: content;
     display: flex;
     flex-direction: column;
     
-    width: 100%;
+    width: 100vw;
     max-width: 121.2rem;
     height: 100%;
     margin: auto;
     padding: 3.5rem 4rem;
 
-    overflow: auto;
-    overflow: overlay;    
+   
     
     .button {
         display: flex;
@@ -122,6 +143,8 @@ export const Form = styled.form`
         text-align: center;
     }
 
+    
+
     > div p {
         margin-bottom: 0.8rem;
     }
@@ -149,6 +172,11 @@ export const Form = styled.form`
         display: flex;
         gap: 3rem;
         justify-content: space-between;
+        @media only screen and (max-width: 768px) {
+          display: flex;
+          flex-direction:column;
+          gap:0;
+  }
     }
 
     .dishDetails {
@@ -236,6 +264,10 @@ export const Form = styled.form`
 
     .price {
         max-width: 24rem;
+        @media only screen and (max-width: 768px) {
+          margin-bottom:3rem;
+     
+  }
     }
 
     @media only screen and (min-width: 768px) {

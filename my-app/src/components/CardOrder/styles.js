@@ -5,8 +5,8 @@ export const Container = styled.div`
     flex-direction: column;
     align-self: flex-start;
     margin-bottom: 2rem;
-    width: 40rem;
-    max-height: 48rem;
+    width: 35rem;
+
 
     font-family: 'Poppins', sans-serif;
     font-size: 2rem;
@@ -37,6 +37,10 @@ export const Container = styled.div`
     height: 8rem;
     border-radius: 50%;
     object-fit: cover
+  }
+
+  p{
+    text-align: left;
   }
     
 `;

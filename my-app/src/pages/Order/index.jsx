@@ -63,37 +63,37 @@ export function Order() {
                 date: item.date, // Use a data correta do item
                 user_id: item.user_id, // Use o user_id correto do item
                 name: item.name,
-              })))
-            
-            
-          
+            })))
+
+
+
         };
     }
-    
+
 
     async function removeOrder(id) {
         try {
-          await api.delete(`/cart/${id}`);
-          setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== id));
-          const response = await api.get("/cart");
-          setTotal(response.data.total);
+            await api.delete(`/cart/${id}`);
+            setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== id));
+            const response = await api.get("/cart");
+            setTotal(response.data.total);
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      }
+    }
 
 
     function handleBack() {
         navigate(-1);
-      }
-    
+    }
+
     async function handleFinishPayment() {
         if (!pixActive && num.length < 16) {
             alert("Erro: Número de cartão incompleto!");
             return;
         }
 
-      
+
         if (!pixActive && cvc.length < 3) {
             return alert("Erro: CVC do cartão incompleto!");
         }
@@ -101,11 +101,11 @@ export function Order() {
         setLoading(true);
 
         try {
-            const orderData = handleCreatedOrder(); 
-            const { data: orderId } = await api.post("/orders", orderData); 
-            setOrderId(orderId); 
+            const orderData = handleCreatedOrder();
+            const { data: orderId } = await api.post("/orders", orderData);
+            setOrderId(orderId);
             disableButton();
-            
+
             setTimeout(() => {
                 alert("Pedido cadastrado com sucesso!");
                 navigate(-1);
@@ -169,144 +169,145 @@ export function Order() {
         <Container>
             <Header />
 
-            <ButtonText onClick={handleBack}  icon={FiArrowLeft} />
 
-                    <Content>
+            <Content>
+
+                <div className="order-wrapper">
+                    <div className="back">
+                        <ButtonText onClick={handleBack} icon={FiArrowLeft} />
+                        <h3>Meu pedido</h3>
+                    </div>
+                    <div className="details">
+                        {cartItems.map((item) => (
+                            <CardOrder
+                                key={item.id}
+                                data={item}
+                                onRemove={removeOrder}
+                            />
+                        ))}
+                    </div>
 
 
-                        <div className="order-wrapper">
-                            <h2>Meu pedido</h2>
-                            <div className="details">
-                                {cartItems.map((item) => (
-                                    <CardOrder
-                                        key={item.id}
-                                        data={item}
-                                        onRemove={removeOrder} 
-                                    />
-                                ))}
-                            </div>
+                    <h3>Total: <span>{total}</span></h3>
 
+                </div>
 
-                            <h3>Total: <span>{total}</span></h3>
+                <PaymentCard>
+                    <div className="paymentHeader">
+                        <h2>Pagamento</h2>
 
+                        <div className="buttons">
+                            <button className={pixActive === true ? 'active' : ''} disabled={disabledButton} onClick={handlePaymentPix}>
+                                <img src={pix} alt="Logo Pix" />
+                                PIX
+                            </button>
+
+                            <button className={creditActive === true ? 'active' : ''} disabled={disabledButton} onClick={handlePaymentCredit}>
+                                <img src={creditCard} alt="Logo Cartão de Crédito" />
+                                Crédito
+                            </button>
                         </div>
+                    </div>
 
-                        <PaymentCard>
-                            <div className="paymentHeader">
-                                <h2>Pagamento</h2>
+                    <div className="paymentBody">
 
-                                <div className="buttons">
-                                    <button className={pixActive === true ? 'active' : ''} disabled={disabledButton} onClick={handlePaymentPix}>
-                                        <img src={pix} alt="Logo Pix" />
-                                        PIX
-                                    </button>
+                        {isCartVisible &&
+                            <div className="cart" id="cart">
 
-                                    <button className={creditActive === true ? 'active' : ''} disabled={disabledButton} onClick={handlePaymentCredit}>
-                                        <img src={creditCard} alt="Logo Cartão de Crédito" />
-                                        Crédito
-                                    </button>
+                                <p>Selecione uma forma de pagamento acima!</p>
+                            </div>
+                        }
+
+                        {isPixVisible &&
+                            <div className={pixActive === false ? 'active' : ''} id="paymentPix">
+                                <div className="qr">
+                                    <img src={qrCode} alt="Imagem do QRCode" />
                                 </div>
+
+                                <Button
+                                    title={loading ? "Finalizando pagamento" : "Finalizar pagamento"}
+                                    disabled={loading}
+                                    icon={BsReceipt}
+                                    onClick={handleFinishPayment}
+                                    style={{ height: 56 }}
+                                    className="finishPaymentButton"
+
+                                />
                             </div>
+                        }
 
-                            <div className="paymentBody">
+                        {isCreditVisible &&
 
-                                {isCartVisible &&
-                                    <div className="cart" id="cart">
+                            <div className="paymentCredit" id="paymentCredit">
+                                <div className="inputs">
+                                    <p>Número do Cartão</p>
+                                    <Input
+                                        placeholder="0000 0000 0000 0000"
+                                        type="number"
+                                        id="num"
+                                        name="num"
+                                        value={num}
+                                        onChange={handleNumChange}
+                                    />
+                                </div>
 
-                                        <p>Selecione uma forma de pagamento acima!</p>
-                                    </div>
-                                }
-
-                                {isPixVisible &&
-                                    <div className={pixActive === false ? 'active' : ''} id="paymentPix">
-                                        <div className="qr">
-                                            <img src={qrCode} alt="Imagem do QRCode" />
-                                        </div>
-
-                                        <Button
-                                            title={loading ? "Finalizando pagamento" : "Finalizar pagamento"}
-                                            disabled={loading}
-                                            icon={BsReceipt}
-                                            onClick={handleFinishPayment}
-                                            style={{ height: 56 }}
-                                            className="finishPaymentButton"
-
+                                <div className="validTo">
+                                    <div>
+                                        <p>Validade</p>
+                                        <Input
+                                            placeholder="MM/AA"
+                                            type="text"
+                                            id="date"
+                                            name="date"
+                                            maxLength="5"
                                         />
                                     </div>
-                                }
 
-                                {isCreditVisible &&
-
-                                    <div className="paymentCredit" id="paymentCredit">
-                                        <div className="inputs">
-                                            <p>Número do Cartão</p>
-                                            <Input
-                                                placeholder="0000 0000 0000 0000"
-                                                type="number"
-                                                id="num"
-                                                name="num"
-                                                value={num}
-                                                onChange={handleNumChange}
-                                            />
-                                        </div>
-
-                                        <div className="validTo">
-                                            <div>
-                                                <p>Validade</p>
-                                                <Input
-                                                    placeholder="MM/AA"
-                                                    type="text"
-                                                    id="date"
-                                                    name="date"
-                                                    maxLength="5"
-                                                />
-                                            </div>
-
-                                            <div>
-                                                <p>CVC</p>
-                                                <Input
-                                                    placeholder="***"
-                                                    type="number"
-                                                    id="cvc"
-                                                    name="cvc"
-                                                    value={cvc}
-                                                    onChange={handleCvcChange}
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <Button
-                                            title={loading ? "Finalizando pagamento" : "Finalizar pagamento"}
-                                            disabled={loading}
-                                            icon={BsReceipt}
-                                            onClick={handleFinishPayment}
-                                            style={{ height: 56 }}
-                                            className="finishPaymentButton"
-
+                                    <div>
+                                        <p>CVC</p>
+                                        <Input
+                                            placeholder="***"
+                                            type="number"
+                                            id="cvc"
+                                            name="cvc"
+                                            value={cvc}
+                                            onChange={handleCvcChange}
                                         />
                                     </div>
-                                }
+                                </div>
 
-                                {isClockActive &&
+                                <Button
+                                    title={loading ? "Finalizando pagamento" : "Finalizar pagamento"}
+                                    disabled={loading}
+                                    icon={BsReceipt}
+                                    onClick={handleFinishPayment}
+                                    style={{ height: 56 }}
+                                    className="finishPaymentButton"
 
-                                    <div className="clock" id="clock">
-                                        <img src={clock} alt="Imagem do QRCode" />
-                                        <p>Aguarde: Estamos processando o seu pagamento</p>
-                                    </div>
-                                }
-
-                                {isApprovedActive &&
-
-                                    <div className="approved" id="approved">
-                                        <img src={checkCircle} alt="Imagem de pagamento aprovado" />
-                                        <p>Oba! Pagamento aprovado! Em breve faremos a entrega!</p>
-                                    </div>
-                                }
+                                />
                             </div>
-                        </PaymentCard>
+                        }
 
-                    </Content>
-            
+                        {isClockActive &&
+
+                            <div className="clock" id="clock">
+                                <img src={clock} alt="Imagem do QRCode" />
+                                <p>Aguarde: Estamos processando o seu pagamento</p>
+                            </div>
+                        }
+
+                        {isApprovedActive &&
+
+                            <div className="approved" id="approved">
+                                <img src={checkCircle} alt="Imagem de pagamento aprovado" />
+                                <p>Oba! Pagamento aprovado! Em breve faremos a entrega!</p>
+                            </div>
+                        }
+                    </div>
+                </PaymentCard>
+
+            </Content>
+
             <Footer />
         </Container>
 

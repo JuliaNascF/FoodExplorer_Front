@@ -26,9 +26,19 @@ export const Container = styled.div`
                border: solid 10px transparent;
              
            }
+
+           @media only screen and (max-width: 768px) {
+            &::-webkit-scrollbar {
+      display: none;
+     
+  }
+
    }
+}
     
 `;
+
+
 
 export const Content = styled.div`
 
@@ -36,8 +46,8 @@ export const Content = styled.div`
     flex-direction: column;
     
     width: 100%;
-    margin: auto;
-    padding: 3.5rem 4rem;
+    margin: 0 auto;
+   
 
     font-family: 'Poppins', sans-serif;
 
@@ -45,7 +55,8 @@ export const Content = styled.div`
         margin-bottom: 6rem;
     }
 
-    p {
+    >p {
+        padding-left: 4rem;
         font-size: 3.2rem;
         margin-bottom: 3rem;
     }
@@ -70,8 +81,9 @@ export const Banner = styled.div`
     text-align: center;
     justify-content: space-between;
     font-family: 'Poppins', sans-serif;
-   
+    padding: 3.5rem 4rem;
     margin-bottom: 6.2rem;
+    
 
     .banner {
         background: linear-gradient(180deg, ${({ theme }) => theme.COLORS.BLUE_400} 0%, ${({ theme }) => theme.COLORS.BLUE_500} 100%);
@@ -134,7 +146,11 @@ export const Banner = styled.div`
 
 export const Category = styled.div`
    display: flex;
-  
+   padding-left:4rem;
+   padding-right:4rem;
+   @media only screen and (max-width: 768px) {
+    padding: 0;
+  }
 
   > .card {
     display: flex;
@@ -150,5 +166,11 @@ export const Category = styled.div`
    
   button{
     color:${({ theme }) => theme.COLORS.BLUE_GREEN_800}
+  }
+
+  @media only screen and (max-width: 768px) {
+     >button{
+        display: none;
+     }
   }
 `;

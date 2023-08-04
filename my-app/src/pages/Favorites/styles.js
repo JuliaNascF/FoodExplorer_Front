@@ -25,6 +25,11 @@ export const Content = styled.div`
   overflow-y: auto;
   flex-wrap:wrap;
   gap: 20px;
+  width: 100vw;
+    max-width: 121.2rem;
+    height: 100%;
+    margin: auto;
+    padding: 3.5rem 4rem;
  
   &::-webkit-scrollbar {
         width: 22px;
@@ -38,20 +43,21 @@ export const Content = styled.div`
      border: solid 10px transparent;
  }
 
+ @media only screen and (max-width: 768px) {
+    &::-webkit-scrollbar {
+display: none;
+
+}}
+
     .back{
     display: flex;
     gap: 5px;
-    margin-left: 35rem;
-    margin-top: 49rem;
+    
+  
 
     h3{
       font-size:25px;
     }
-
-
-    @media only screen and (max-width: 768px) {
-      margin-left: 2rem;
-     }
      
   }
 

@@ -128,6 +128,7 @@ export const Content = styled.div`
 `;
 export const Ingredients = styled.div`
   margin: 40px 0;
+ 
   
 `;
 
