@@ -106,6 +106,7 @@ export const Content = styled.div`
         max-width: 768px;
 
         #order{
+            cursor: pointer;
             display:flex;
         }
 
@@ -118,13 +119,15 @@ export const Content = styled.div`
             left: -100%;
             top: 10.4rem;
             z-index: 9999;
-            
+            .button{
+            display:none
+          }
             width: 100%;
             height: 35rem;
             gap: 2rem;
             padding: 5rem 5rem 3rem;
             border-radius: 0 0 2rem 2rem;
-            border: 1px solid ${({ theme }) => theme.COLORS.BLUE};
+            border: 1px solid ${({ theme }) => theme.COLORS.WHITE};
             
             transition: 0.3s;
             
@@ -132,12 +135,15 @@ export const Content = styled.div`
             box-shadow:
                 0 10px 27px rgba(0, 0, 0, 0.05);
 
-          
-              
+           
         }
 
         .nav-menu.active {
             left: 0;
+            .button{
+            display:none
+          }
+            
         }
 
         .nav-item {

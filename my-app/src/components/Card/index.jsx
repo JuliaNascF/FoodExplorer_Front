@@ -9,12 +9,15 @@ import { BsReceipt } from 'react-icons/bs';
 import pencil from '../../assets/pencil.svg'
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { AlertModal } from '../AlertModal/index.jsx';
 import { useNavigate } from 'react-router-dom';
 
 export function Card({ data, image, description, name, price,  ...rest }) {
     const { user } = useAuth()
     const [quantity, setQuantity] = useState(1);
     const [isFavorite, setIsFavorite] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
     const navigate= useNavigate();
 
     function handleDetails(id) {
@@ -28,7 +31,8 @@ export function Card({ data, image, description, name, price,  ...rest }) {
   
     const increase = () => {
         if (quantity > 19) {
-            alert("Erro: A quantidade máxima é de 20 unidades")
+            setAlertMessage("A quantidade máxima é de 20 unidades");
+            setShowAlert(true);
             return;
         }
         setQuantity(count => count + 1);
@@ -37,7 +41,8 @@ export function Card({ data, image, description, name, price,  ...rest }) {
      
     const decrease = () => {
         if (quantity < 2) {
-            alert("Erro: A quantidade mínima é 1 unidade")
+            setAlertMessage("A quantidade mínima é 1 unidade");
+            setShowAlert(true);
             return;
         }
         setQuantity(count => count - 1);
@@ -89,13 +94,17 @@ export function Card({ data, image, description, name, price,  ...rest }) {
       const response = await api.get(`/cart/check/${id}`);
       const isAlreadyInCart = response.data.isInCart;
       if (isAlreadyInCart) {
-        alert("O prato já está incluso no pedido!");
+         setAlertMessage("O prato já está incluso no pedido!");
+          setShowAlert(true);
       } else {
         await api.post(`/cart/${id}`, { quantity });
-        alert("Prato adicionado ao pedido!");
+         setAlertMessage("Prato adicionado ao pedido!");
+          setShowAlert(true);
+       
       }
     } catch (error) {
-      alert("Erro ao adicionar produto ao carrinho!");
+      setAlertMessage("Erro ao adicionar produto ao carrinho!");
+          setShowAlert(true);
     }
   }
 
@@ -167,6 +176,8 @@ export function Card({ data, image, description, name, price,  ...rest }) {
                         </div>
                     </Content>
                 }
+                {showAlert && <AlertModal message={alertMessage}  onClose={() => setShowAlert(false)} />}
+
         </Container>
     );
 }

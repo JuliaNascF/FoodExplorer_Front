@@ -5,6 +5,7 @@ import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { ButtonText } from "../../components/ButtonText";
 import { Button } from "../../components/Button";
+import { AlertModal } from '../../components/AlertModal';
 import { Ingredient } from "../../components/Ingredient/index.jsx";
 import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
@@ -18,7 +19,8 @@ import { FiMinus, FiPlus } from 'react-icons/fi';
 import { BsReceipt } from 'react-icons/bs';
 
 export function Details() {
-
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     const { user } = useAuth()
 
@@ -37,7 +39,8 @@ export function Details() {
 
     const increase = () => {
         if (quantity > 19) {
-            alert("Erro: A quantidade máxima é de 20 unidades")
+            setAlertMessage("A quantidade máxima é de 20 unidades");
+            setShowAlert(true);
             return;
         }
         setQuantity(count => count + 1);
@@ -46,7 +49,8 @@ export function Details() {
 
     const decrease = () => {
         if (quantity < 2) {
-            alert("Erro: A quantidade mínima é 1 unidade")
+            setAlertMessage("A quantidade mínima é 1 unidade");
+            setShowAlert(true);
             return;
         }
         setQuantity(count => count - 1);
@@ -66,13 +70,16 @@ export function Details() {
           const response = await api.get(`/cart/check/${id}`);
           const isAlreadyInCart = response.data.isInCart;
           if (isAlreadyInCart) {
-            alert("O prato já está incluso no pedido!");
+            setAlertMessage("O prato já está incluso no pedido!");
+            setShowAlert(true);
           } else {
             await api.post(`/cart/${id}`, { quantity });
-            alert("Prato adicionado ao pedido!");
+            setAlertMessage("Prato adicionado ao pedido!");
+            setShowAlert(true);
           }
         } catch (error) {
-          alert("Erro ao adicionar produto ao carrinho!");
+          setAlertMessage("Erro ao adicionar produto ao carrinho!");
+          setShowAlert(true);
         }
       }
 
@@ -158,6 +165,7 @@ export function Details() {
                 </Content>
             }
             <Footer />
+            {showAlert && <AlertModal message={alertMessage}  onClose={() => setShowAlert(false)} />}
         </Container>
 
     );

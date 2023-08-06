@@ -2,17 +2,23 @@
 import { Container, Content } from "./styles";
 import { Header } from '../../components/Header';
 import { Footer } from "../../components/Footer";
+import { PageError } from '../../components/PageError';
 import { FaSpinner } from "react-icons/fa";
 import { ButtonText } from "../../components/ButtonText";
+import { AlertModal } from '../../components/AlertModal';
 import { useState, useEffect } from 'react';
 import { api } from '../../services/api';
 import { FiArrowLeft } from 'react-icons/fi'
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/auth";
 
 
 export function Favorites() {
   const [favorites, setFavorites] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const { user } = useAuth();
 
   async function fetchFavorites() {
     try {
@@ -45,7 +51,8 @@ export function Favorites() {
        await api.delete(`/favorites/${id}`);
         fetchFavorites();
       } catch (error) {
-        alert("Erro ao remover produto dos favoritos!");
+        setAlertMessage("Erro ao remover produto dos favoritos!");
+        setShowAlert(true);
       }
     
   }
@@ -54,6 +61,11 @@ export function Favorites() {
   return (
     <Container>
       <Header />
+      {
+        user.isAdmin? 
+        <PageError/>
+
+        :
         <Content>
     
         <div className="back">
@@ -80,9 +92,12 @@ export function Favorites() {
             ) : (
               <p>Você não possui favoritos.</p>
               )}
+            
               </div>
         </Content>
+          }
       <Footer/>
+      {showAlert && <AlertModal message={alertMessage}  onClose={() => setShowAlert(false)} />}
     </Container>
   );
 }

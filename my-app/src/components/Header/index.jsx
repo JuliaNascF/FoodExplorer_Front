@@ -32,6 +32,12 @@ export function Header({ search, favoritesFilter }) {
         navigate("/create")
     }
 
+    function handleInit() {
+        signOut()
+        navigate("/")
+    }
+
+
 
 
     return (
@@ -54,7 +60,7 @@ export function Header({ search, favoritesFilter }) {
 
                 </div>
 
-                <img id="order" src={order} alt="" />
+                <img onClick={handleHistory} id="order" src={order} alt="" />
 
 
                 <div className="nav-menu" id="nav-menu">
@@ -82,7 +88,7 @@ export function Header({ search, favoritesFilter }) {
 
                     <Logout >
 
-                        <FiLogOut onClick={signOut} />
+                        <FiLogOut onClick={handleInit} />
                     </Logout>
 
 
@@ -106,7 +112,7 @@ export function Header({ search, favoritesFilter }) {
 
                         </div>
 
-                        <img id="order" src={order} alt="" />
+                        <img onClick={handleOrder}  id="order" src={order} alt="" />
 
 
                         <div className="nav-menu" id="nav-menu">
@@ -132,9 +138,9 @@ export function Header({ search, favoritesFilter }) {
 
                             </div>
 
-                            <Logout onClick={signOut}>
+                            <Logout onClick={handleInit}>
 
-                                <FiLogOut />
+                                <FiLogOut  />
                             </Logout>
 
 

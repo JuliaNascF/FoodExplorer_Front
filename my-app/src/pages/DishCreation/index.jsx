@@ -4,9 +4,11 @@ import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { Button } from "../../components/Button";
 import { ButtonText } from "../../components/ButtonText";
+import { AlertModal } from '../../components/AlertModal';
 import { Input } from "../../components/Input";
 import { Textarea } from "../../components/Textarea";
 import { IngredientsTag } from "../../components/IngredientsTag/index.jsx";
+import { PageError } from '../../components/PageError';
 import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
 import { Link } from "react-router-dom";
@@ -16,6 +18,8 @@ import { RiArrowLeftSLine } from 'react-icons/ri';
 import { FiUpload } from "react-icons/fi";
 
 export function DishCreation( ) {
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
     const { user } = useAuth()
     const [loading, setLoading] = useState(false);
 
@@ -26,7 +30,9 @@ export function DishCreation( ) {
 
     function handleAddIngredient() {
         if (newIngredient.length < 3) {
-            return alert("Erro: Você está tentando inserir um nome de ingrediente inválido!");
+            setAlertMessage("Você está tentando inserir um nome de ingrediente inválido!");
+            setShowAlert(true);
+            return;
         } else {
             setIngredients(prevState => [...prevState, newIngredient]);
             setNewIngredient("");
@@ -45,31 +51,45 @@ export function DishCreation( ) {
 
     async function handleNewDish() {
         if (!image) {
-            return alert("Erro: Você não inseriu uma imagem para o prato!");
+            setAlertMessage("Você não inseriu uma imagem para o prato!");
+            setShowAlert(true);
+            return;
         }
         
         if (!name) {
-            return alert("Erro: Você não informou o nome do prato!");
+            setAlertMessage("Você não informou o nome do prato!");
+            setShowAlert(true);
+            return;
         }
 
         if (ingredients.length < 1) {
-            return alert("Erro: Adicione pelo menos um ingrediente!")
+            setAlertMessage("Adicione pelo menos um ingrediente!");
+            setShowAlert(true);
+            return;
         }
 
         if (newIngredient) {
-            return alert("Erro: Você deixou um ingrediente no campo para adicionar, mas não clicou em adicionar. Clique no sinal de + para adicionar!");
+            setAlertMessage("Você deixou um ingrediente no campo para adicionar, mas não clicou em adicionar. Clique no sinal de + para adicionar!");
+            setShowAlert(true);
+            return;
         }
 
         if (!category) {
-            return alert("Erro: Você não selecionou a categoria do prato!");
+            setAlertMessage("Você não selecionou a categoria do prato!");
+            setShowAlert(true);
+            return;
         }
 
         if (!price) {
-            return alert("Erro: Você não informou o preço do prato!");
+            setAlertMessage("Você não informou o preço do prato!");
+            setShowAlert(true);
+            return;
         }
 
         if (!description) {
-            return alert("Erro: Você não informou uma descrição para o prato!");
+            setAlertMessage("Você não informou uma descrição para o prato!");
+            setShowAlert(true);
+            return;
         }
 
        
@@ -93,13 +113,15 @@ export function DishCreation( ) {
           // Fazer a chamada para a API utilizando o método POST
           await api.post("/dishes", formData);
     
-          alert("Prato adicionado com sucesso!");
+           setAlertMessage("Prato adicionado com sucesso!");
+            setShowAlert(true);
           navigate("/");
         } catch (error) {
           if (error.response) {
             alert(error.response.data.message);
           } else {
-            alert("Erro ao criar o prato!");
+            setAlertMessage("Erro ao adicionar prato");
+            setShowAlert(true);
           }
         }
     
@@ -109,6 +131,9 @@ export function DishCreation( ) {
     return(
                 <Container>
                     <Header />
+
+                    {
+                         user.isAdmin ?
                                 <Content>
 
 
@@ -213,9 +238,15 @@ export function DishCreation( ) {
                                 </div>
 
                                 </Content>
+                          
+                          :
 
+                          <PageError/>
+
+                    }
                     
                         <Footer />
+                        {showAlert && <AlertModal message={alertMessage}  onClose={() => setShowAlert(false)} />}
                 </Container>
     );
 }

@@ -9,9 +9,9 @@ export const Container = styled.div`
     grid-template-rows: 10.5rem auto 8rem;
     grid-template-areas:
     "header"
-    "content";
+    "content"
+    "footer";
 
-  
     .back{
     position: absolute;
     top: 14rem;
@@ -198,5 +198,14 @@ export const Order = styled.div`
     }
 
 
+    select {
+        max-width: 17.5rem;
+        background: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+        color:${({ theme }) => theme.COLORS.WHITE};
+        border-radius: 0.8rem;
      
+
+        padding: 1.3rem 1.6rem;
+
+    }
 `;

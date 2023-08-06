@@ -8,7 +8,8 @@ import { ButtonText } from "../../components/ButtonText";
 import { Input } from "../../components/Input";
 import { IngredientsTag } from "../../components/IngredientsTag";
 import { Textarea } from "../../components/Textarea";
-
+import { PageError } from "../../components/PageError/index.jsx";
+import { AlertModal } from '../../components/AlertModal';
 import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
 import { useState, useEffect } from "react";
@@ -19,29 +20,42 @@ import { RiArrowLeftSLine } from 'react-icons/ri';
 import { FiCamera } from "react-icons/fi";
 
 export function DishEdition() {
-
-    const navigate = useNavigate();
-
     const { user } = useAuth()
     const params = useParams();
-
     const [loading, setLoading] = useState(false);
     const [loadingDelete, setLoadingDelete] = useState(false);
-    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
     const [ingredients, setIngredients] = useState([]);
     const [newIngredient, setNewIngredient] = useState("");
-
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
     const [data, setData] = useState(null);
     const [image, setImage] = useState();
     const [imageFile, setImageFile] = useState(null)
+    
+        const navigate = useNavigate();
 
-    function handleRemoveDish() {
-        setShowConfirmationModal(true);
+   async function handleRemoveDish() {
+        setLoadingDelete(true);
+
+        try {
+            await api.delete(`/dishes/${params.id}`);
+            setAlertMessage("Prato removido com sucesso!");
+            setShowAlert(true);
+            navigate("/");
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data.message);
+            } else {
+                setAlertMessage("Erro ao remover prato!");
+            setShowAlert(true);
+            }
+        }
+
+        setLoadingDelete(false);
     }
 
 
@@ -55,7 +69,9 @@ export function DishEdition() {
 
     function handleAddIngredient() {
         if (newIngredient.length < 3) {
-            return alert("Erro: Você está tentando inserir um nome de ingrediente inválido!");
+            setAlertMessage("Você está tentando inserir um nome de ingrediente inválido!");
+            setShowAlert(true);
+            return;
         } else {
             setIngredients(prevState => [...prevState, newIngredient]);
             setNewIngredient("");
@@ -68,25 +84,39 @@ export function DishEdition() {
 
     // Update Dish Function
     async function handleUpdateDish() {
-
-        if (!ingredients || ingredients.length === 0) {
-            return alert("Erro: Adicione pelo menos um ingrediente!");
+        if (!image) {
+            setAlertMessage("Você não inseriu uma imagem para o prato!");
+            setShowAlert(true);
+            return;
         }
-
+        
         if (newIngredient) {
-            return alert("Erro: Você deixou um ingrediente no campo para adicionar, mas não clicou em adicionar. Clique no sinal de + para adicionar!");
+            setAlertMessage("Você deixou um ingrediente no campo para adicionar, mas não clicou em adicionar. Clique no sinal de + para adicionar!");
+            setShowAlert(true);
+            return;;
         }
-
+        
+        if (!ingredients || ingredients.length === 0) {
+            setAlertMessage("Adicione pelo menos um ingrediente!");
+            setShowAlert(true);
+            return;
+        }
         if (!category) {
-            return alert("Erro: Você não selecionou a categoria do prato!");
+            setAlertMessage("Você não selecionou a categoria do prato!");
+            setShowAlert(true);
+            return;
         }
 
         if (!price) {
-            return alert("Erro: Você não informou o preço do prato!");
+            setAlertMessage("Você não informou o preço do prato!");
+            setShowAlert(true);
+            return;
         }
 
         if (!description) {
-            return alert("Erro: Você não informou uma descrição para o prato!");
+            setAlertMessage("Você não informou uma descrição para o prato!");
+            setShowAlert(true);
+            return;
         }
 
         setLoading(true);
@@ -107,12 +137,14 @@ export function DishEdition() {
 
         await api
             .put(`/dishes/${params.id}`, formData)
-            .then(alert("Prato atualizado com sucesso!"), navigate("/"))
+            .then( setAlertMessage("Prato atualizado com sucesso!"),setShowAlert(true)
+          , navigate("/"))
             .catch((error) => {
                 if (error.response) {
                     alert(error.response.data.message);
                 } else {
-                    alert("Erro ao atualizar o prato!");
+                    setAlertMessage("Erro ao atualizar o prato!");
+                    setShowAlert(true)
                 }
             });
 
@@ -136,26 +168,7 @@ export function DishEdition() {
         fetchDish();
     }, [])
 
-    // Remove Dish Function
-    async function handleDeleteConfirmed() {
-        setShowConfirmationModal(false);
-        setLoadingDelete(true);
-
-        try {
-            await api.delete(`/dishes/${params.id}`);
-            alert("Item removido com sucesso!");
-            navigate("/");
-        } catch (error) {
-            if (error.response) {
-                alert(error.response.data.message);
-            } else {
-                alert("Erro ao remover o prato!");
-            }
-        }
-
-        setLoadingDelete(false);
-
-    }
+   
 
     return (
 
@@ -279,19 +292,6 @@ export function DishEdition() {
                             </Form>
                         }
 
-                        {showConfirmationModal && (
-                            <div className="modal">
-                                <div className="modal-content">
-                                    <h2>Confirm Delete</h2>
-                                    <p>Are you sure you want to remove this item?</p>
-                                    <div className="modal-buttons">
-                                        <Button onClick={() => setShowConfirmationModal(false)}>Cancel</Button>
-                                        <Button onClick={handleDeleteConfirmed}>Delete</Button>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
 
                         <div className="button">
                             <Button
@@ -311,10 +311,13 @@ export function DishEdition() {
 
                     :
 
-                    <h1>error</h1>
+                    
+                   <PageError/>
             }
 
             <Footer />
+
+            {showAlert && <AlertModal message={alertMessage}  onClose={() => setShowAlert(false)} />}
         </Container>
 
     );

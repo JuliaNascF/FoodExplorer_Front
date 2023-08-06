@@ -3,10 +3,13 @@ import { Container, Content, PaymentCard } from "./styles.js";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { CardOrder } from "../../components/CardOrder";
+import { PageError } from '../../components/PageError';
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button"
 import { ButtonText } from "../../components/ButtonText";
+import { AlertModal } from '../../components/AlertModal';
 import { api } from "../../services/api";
+import { useAuth } from "../../hooks/auth.jsx";
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft } from 'react-icons/fi'
@@ -34,7 +37,9 @@ export function Order() {
     const [cartItems, setCartItems] = useState([]);
     const [total, setTotal] = useState(0);
     const [orderId, setOrderId] = useState(null);
-
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const { user } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -58,10 +63,10 @@ export function Order() {
             total_amount: total,
             items: JSON.stringify(cartItems.map(item => ({
                 id: item.id,
-                dish_id: item.id, // Use o id do prato ou a propriedade correta do item
-                quantity: item.quantity, // Use a quantidade correta do item
-                date: item.date, // Use a data correta do item
-                user_id: item.user_id, // Use o user_id correto do item
+                dish_id: item.id, 
+                quantity: item.quantity, 
+                date: item.date, 
+                user_id: item.user_id, 
                 name: item.name,
             })))
 
@@ -89,13 +94,17 @@ export function Order() {
 
     async function handleFinishPayment() {
         if (!pixActive && num.length < 16) {
-            alert("Erro: Número de cartão incompleto!");
+           setAlertMessage("Número de cartão incompleto!");
+            setShowAlert(true);
             return;
         }
 
 
         if (!pixActive && cvc.length < 3) {
-            return alert("Erro: CVC do cartão incompleto!");
+            setAlertMessage("CVC do cartão incompleto!");
+            setShowAlert(true);
+            return;
+            
         }
 
         setLoading(true);
@@ -107,17 +116,26 @@ export function Order() {
             disableButton();
 
             setTimeout(() => {
-                alert("Pedido cadastrado com sucesso!");
+                setAlertMessage("Pedido cadastrado com sucesso!");
+                setShowAlert(true);
                 navigate(-1);
-            }, 7000);
+            }, 6000);
+              
+        try {
+            await api.delete(`/cart`);
+        } catch (error) {
+            console.log(error);
+        }
         } catch (error) {
             if (error.response) {
                 alert(error.response.data.message);
             } else {
-                alert("Não foi possível cadastrar");
+                setAlertMessage("Não foi possível cadastrar");
+                setShowAlert(true);
             }
         }
-
+      
+    
         setLoading(false);
     }
 
@@ -160,15 +178,19 @@ export function Order() {
         setTimeout(() => {
             setIsClockActive(false);
             setIsApprovedActive(true);
-
-            // Delay
-        }, 4000);
+        
+        }, 3000);
     }
 
     return (
         <Container>
             <Header />
+             
+            {
+        user.isAdmin? 
+        <PageError/>
 
+        :
 
             <Content>
 
@@ -307,8 +329,9 @@ export function Order() {
                 </PaymentCard>
 
             </Content>
-
+           }
             <Footer />
+            {showAlert && <AlertModal message={alertMessage}  onClose={() => setShowAlert(false)} />}
         </Container>
 
     );

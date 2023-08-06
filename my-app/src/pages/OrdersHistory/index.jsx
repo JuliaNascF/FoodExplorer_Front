@@ -31,6 +31,8 @@ export function OrdersHistory() {
         fetchOrders();
     }, []);
 
+  
+
     function formatDate(dateString) {
         const date = new Date(dateString);
         const formattedDate = format(date, 'dd/MM');
@@ -83,15 +85,17 @@ export function OrdersHistory() {
                     prevOrders.map(order => {
                         if (order.id === orderId) {
                             return { ...order, orderstatus: newStatus };
+                            
                         } else {
                             return order;
                         }
                     })
-                );
-            }
+                ); 
+            }  
         } catch (error) {
             console.log(error);
         }
+
     };
 
     useEffect(() => {
