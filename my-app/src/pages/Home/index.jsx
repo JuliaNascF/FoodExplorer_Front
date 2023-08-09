@@ -12,7 +12,9 @@ import { MdOutlineArrowForwardIos, MdOutlineArrowBackIosNew } from "react-icons/
 
 export function Home() {
   const [dishes, setDishes] = useState([]);
+  const [search, setSearch] = useState('');
 
+ 
 
   useEffect(() => {
     async function fetchDishes() {
@@ -30,6 +32,32 @@ export function Home() {
 
     fetchDishes();
   }, []);
+
+
+  useEffect(() => {
+    async function fetchDishes() {
+
+      const resp = await api.get("/dishes");
+   
+      const allDishes = resp.data;
+
+      const filteredProducts = allDishes.filter((dishes) => {
+        const lowerCaseSearch = search.toLowerCase();
+        const lowerCaseTitle = dishes.name.toLowerCase();
+        const lowerCaseCategory = dishes.category.toLowerCase();
+
+        return (
+          lowerCaseTitle.includes(lowerCaseSearch) ||
+          lowerCaseCategory.includes(lowerCaseSearch)
+        );
+      });
+      setDishes(filteredProducts);
+     
+     
+    }
+    
+    fetchDishes();
+  }, [search]);
 
   const dishProductContainerRef = useRef(null);
   const dessertProductContainerRef = useRef(null);
@@ -76,7 +104,7 @@ export function Home() {
 
   return (
     <Container>
-      <Header />
+      <Header value={search} setSearch={setSearch}  showSearch={true} />
       <main>
         <Content>
           <Banner>

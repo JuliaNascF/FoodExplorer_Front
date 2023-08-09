@@ -3,6 +3,7 @@ import { Container, Form } from "./styles";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { useAuth } from "../../hooks/auth";
+import { AlertModal } from '../../components/AlertModal';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +11,8 @@ export function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { signIn, loading } = useAuth();
-    
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
     const navigate = useNavigate();
     
     function handleSignIn() {
@@ -21,9 +23,15 @@ export function SignIn() {
             
             }
           })
-          .catch((error) => {
-            console.log(error)
-          });
+          .catch(error => {
+            if (error.response && error.response.data && error.response.data.error) {
+                setAlertMessage("Erro: " + error.response.data.error);
+                setShowAlert(true);
+            } else {
+                setAlertMessage("Não foi possível cadastrar");
+                setShowAlert(true);
+            }
+        });
       }
       
       function handleSignUp(){
@@ -76,6 +84,7 @@ export function SignIn() {
                
 
             </Form>
+            {showAlert && <AlertModal message={alertMessage}  onClose={() => setShowAlert(false)} />}
         </Container>
       
     );

@@ -60,7 +60,7 @@ export function Favorites() {
 
   return (
     <Container>
-      <Header />
+      <Header/>
       {
         user.isAdmin? 
         <PageError/>

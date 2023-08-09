@@ -39,8 +39,9 @@ export function SignUp() {
                 setLoading(false);
             })
             .catch(error => {
-                if (error.response) {
-                    alert(error.response.data.message);
+                if (error.response && error.response.data && error.response.data.error) {
+                    setAlertMessage("Erro: " + error.response.data.error);
+                    setShowAlert(true);
                 } else {
                     setAlertMessage("Não foi possível cadastrar");
                     setShowAlert(true);

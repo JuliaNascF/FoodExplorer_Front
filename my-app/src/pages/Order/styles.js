@@ -13,9 +13,6 @@ export const Container = styled.div`
     "header"
     "content"
     "footer";
-    
-
-    
     `;
     
     
@@ -39,6 +36,14 @@ export const Container = styled.div`
     >h3{
       font-size:25px;
     }
+
+    @media only screen and (max-width: 768px) {
+        position:absolute;
+        top: 13rem ;
+        left: 4rem;
+    
+    }
+    
   }
     &::-webkit-scrollbar {
           width: 22px;     
@@ -58,7 +63,7 @@ export const Container = styled.div`
         font-size: 3.2rem;
         font-family: 'Poppins', sans-serif;
         margin-bottom: 3rem;
-        margin-top: 3.5rem;
+        margin-top: 3rem;
         justify-content: center;
     }
       
@@ -77,13 +82,11 @@ export const Container = styled.div`
            margin-right: 10rem;
         
         }
-
         .details {
             max-height: 520px;
             overflow: auto;
             overflow: overlay;
         }
-
         .total {
             margin: 0;
             text-align: center;

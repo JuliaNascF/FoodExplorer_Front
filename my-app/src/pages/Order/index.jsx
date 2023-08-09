@@ -69,13 +69,8 @@ export function Order() {
                 user_id: item.user_id, 
                 name: item.name,
             })))
-
-
-
         };
     }
-
-
     async function removeOrder(id) {
         try {
             await api.delete(`/cart/${id}`);
@@ -86,7 +81,6 @@ export function Order() {
             console.log(error);
         }
     }
-
 
     function handleBack() {
         navigate(-1);

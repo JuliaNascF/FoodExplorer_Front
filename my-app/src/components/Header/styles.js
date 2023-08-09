@@ -22,8 +22,6 @@ export const Container = styled.header`
             transform: scale(1.2);
         }
     }
-    
-   
 `;
 
 export const Content = styled.div`
@@ -59,6 +57,7 @@ export const Content = styled.div`
 
 }
 
+
 #order{
     display: none;
 }
@@ -66,10 +65,12 @@ export const Content = styled.div`
     .nav-menu {
         display: flex;
         justify-content: space-between;
-        
         width: 100%;
         gap: 3rem;
 
+        .noShow{
+            margin-left:4rem;
+        }
         p{
             cursor: pointer;
             display: flex;
@@ -191,6 +192,7 @@ export const Search = styled.div`
         &:placeholder {
             color: ${({ theme }) => theme.COLORS.GRAY_200};
         }
+
     }
 
     label {
@@ -224,43 +226,3 @@ export const Logout = styled.div`
     }
 `;
 
-export const Profile = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
-    height: 5.6rem;
-    border: none;
-    background: none;
-    
-    cursor: pointer;
-
-    > svg {
-        color: ${({ theme }) => theme.COLORS.BLUE};
-        font-size: 3.2rem;
-    }
-    
-    > svg:hover {
-        animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-    }
-
-   
-`;
-
-export const ButtonMenu = styled.button`
-    display: flex;
-    align-items: center;
-
-    width: 100%;
-    height: 4rem;
-    padding: 0 1.6rem;
-    gap: 1rem;
-    
-    border: none;
-    border-radius: 0.5rem;
-    
-    font-size: 1.4rem;
-
-    color: ${({ theme }) => theme.COLORS.WHITE};
-    background-color: ${({ theme }) => theme.COLORS.BLUE_200};
-`;

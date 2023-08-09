@@ -117,7 +117,7 @@ export const Banner = styled.div`
     @media only screen and (min-width: 1060px) {
         position: relative;
         margin-top: 17rem;
-        
+     
 
         .banner {
             display: flex;
@@ -135,6 +135,7 @@ export const Banner = styled.div`
         }
 
         img {
+            margin-left:  4rem;
             width: 65.6rem;
             position: absolute;
             bottom: 1.3rem;
