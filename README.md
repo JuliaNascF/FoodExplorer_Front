@@ -37,7 +37,8 @@ Clone o projeto para o local desejado em seu computador.
 $ git clone https://github.com/JuliaNascF/Budega_ECommerce-Front.git
 ```
 ## Deploy:
-https://food-explorer-front-irdbsyqt8-julianascf.vercel.app/
+https://food-explorer-front-zeta.vercel.app/
+
 Use essa conta para ver como a aplicação funciona vista pelo admin: 
 ```bash
   e-mail: admin@email.com
