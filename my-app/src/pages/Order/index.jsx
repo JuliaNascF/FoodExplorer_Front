@@ -105,6 +105,7 @@ export function Order() {
 
         try {
             const orderData = handleCreatedOrder();
+            console.log(orderData)
             const { data: orderId } = await api.post("/orders", orderData);
             setOrderId(orderId);
             disableButton();

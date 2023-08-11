@@ -91,7 +91,7 @@ export function Card({ data, image, description, name, price,  ...rest }) {
   
   async function AddToCart(id) {
     try {
-      const response = await api.get(`/cart/check/${id}`);
+      await api.get(`/cart/check/${id}`);
       const isAlreadyInCart = response.data.isInCart;
       if (isAlreadyInCart) {
          setAlertMessage("O prato já está incluso no pedido!");

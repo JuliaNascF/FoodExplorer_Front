@@ -31,8 +31,6 @@ export function OrdersHistory() {
         fetchOrders();
     }, []);
 
-  
-
     function formatDate(dateString) {
         const date = new Date(dateString);
         const formattedDate = format(date, 'dd/MM');
@@ -167,7 +165,7 @@ export function OrdersHistory() {
                                         ordersAdmin.map(order => (
                                             <tr key={String(order.id)}>
                                                 <td>
-                                                    <select value={order.orderstatus}
+                                                    <select value={order.orderStatus}
                                                         onChange={(e) => handleStatusChange(order.id, e.target.value)}  >
                                                         <option value="🔴 Pendente">🔴 Pendente</option>
                                                         <option value="🟠 Preparando">🟠 Preparando</option>
@@ -198,7 +196,7 @@ export function OrdersHistory() {
                                     {orders &&
                                         orders.map(order => (
                                             <tr key={String(order.id)}>
-                                                <td>{order.orderstatus}</td>
+                                                <td>{order.orderStatus}</td>
                                                 <td>0000{order.id}</td>
                                                 <td>
 
