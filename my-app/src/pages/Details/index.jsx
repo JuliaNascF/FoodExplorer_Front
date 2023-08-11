@@ -125,7 +125,7 @@ export function Details() {
                                     <PurchaseCard>
                                         {
                                             data &&
-                                            <Link to={`/editdish/${data.id}`}>
+                                            <Link to={`/edition/${data.id}`}>
                                                 <Button
                                                     title="editar prato"
                                                     icon={BsReceipt}
