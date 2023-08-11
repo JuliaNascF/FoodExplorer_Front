@@ -57,15 +57,14 @@ export function Card({ data, image, description, name, price,  ...rest }) {
   }
 
   async function addToFavorites() {
-    if (user && user.id) {
+    
       setIsFavorite(true);
       try {
         const response = await api.post(`/favorites/${data.id}`);
        
       } catch (error) {
       }
-    } else {
-    }
+    
   }
 
   async function removeFromFavorites() {
@@ -91,7 +90,7 @@ export function Card({ data, image, description, name, price,  ...rest }) {
   
   async function AddToCart(id) {
     try {
-      await api.get(`/cart/check/${id}`);
+     const response= await api.get(`/cart/check/${id}`);
       const isAlreadyInCart = response.data.isInCart;
       if (isAlreadyInCart) {
          setAlertMessage("O prato já está incluso no pedido!");
