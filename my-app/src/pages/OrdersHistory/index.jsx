@@ -235,7 +235,7 @@ export function OrdersHistory() {
                             </p>
                             <p>
                                 <select
-                                    value={order.orderstatus}
+                                    value={order.orderStatus}
                                     onChange={(e) => handleStatusChange(order.id, e.target.value)}
                                 >
                                     <option value="🔴 Pendente">🔴 Pendente</option>
@@ -262,7 +262,7 @@ export function OrdersHistory() {
                                     </div>
                                 ))}
                             </p>
-                            <p>{order.orderstatus}</p>
+                            <p>{order.orderStatus}</p>
                              
                             
                         </Order>
