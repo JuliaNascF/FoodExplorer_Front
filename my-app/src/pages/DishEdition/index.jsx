@@ -35,10 +35,10 @@ export function DishEdition() {
     const [data, setData] = useState(null);
     const [image, setImage] = useState();
     const [imageFile, setImageFile] = useState(null)
-    
-        const navigate = useNavigate();
 
-   async function handleRemoveDish() {
+    const navigate = useNavigate();
+
+    async function handleRemoveDish() {
         setLoadingDelete(true);
 
         try {
@@ -51,7 +51,7 @@ export function DishEdition() {
                 alert(error.response.data.message);
             } else {
                 setAlertMessage("Erro ao remover prato!");
-            setShowAlert(true);
+                setShowAlert(true);
             }
         }
 
@@ -82,20 +82,19 @@ export function DishEdition() {
         setIngredients(prevState => prevState.filter(ingredient => ingredient !== deleted));
     }
 
-    // Update Dish Function
     async function handleUpdateDish() {
         if (!image) {
             setAlertMessage("Você não inseriu uma imagem para o prato!");
             setShowAlert(true);
             return;
         }
-        
+
         if (newIngredient) {
             setAlertMessage("Você deixou um ingrediente no campo para adicionar, mas não clicou em adicionar. Clique no sinal de + para adicionar!");
             setShowAlert(true);
             return;;
         }
-        
+
         if (!ingredients || ingredients.length === 0) {
             setAlertMessage("Adicione pelo menos um ingrediente!");
             setShowAlert(true);
@@ -137,8 +136,8 @@ export function DishEdition() {
 
         await api
             .put(`/dishes/${params.id}`, formData)
-            .then( setAlertMessage("Prato atualizado com sucesso!"),setShowAlert(true)
-          , navigate("/"))
+            .then(setAlertMessage("Prato atualizado com sucesso!"), setShowAlert(true)
+                , navigate("/"))
             .catch((error) => {
                 if (error.response) {
                     alert(error.response.data.message);
@@ -168,7 +167,7 @@ export function DishEdition() {
         fetchDish();
     }, [])
 
-   
+
 
     return (
 
@@ -242,10 +241,10 @@ export function DishEdition() {
                                         </div>
 
                                         <div className="dishIngredients">
-                                            <div className="ingredientsTag">
+                                            <div className="ingredients">
                                                 <div>
                                                     <p>Ingredientes</p>
-                                                    <div className="ingredients">
+                                                    <div className="TagIngredients">
                                                         {
                                                             ingredients.map((ingredient, index) => (
                                                                 <IngredientsTag
@@ -270,7 +269,7 @@ export function DishEdition() {
                                             <div className="price">
                                                 <p>Preço</p>
                                                 <Input
-                                                    placeholder="R$ 00,00"
+                                                    placeholder="R$ 00"
                                                     type="number"
                                                     value={price}
                                                     onChange={e => setPrice(e.target.value)}
@@ -283,7 +282,7 @@ export function DishEdition() {
                                 <div className="textarea">
                                     <p>Descrição</p>
                                     <Textarea
-                                        placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
+                                        placeholder="Fale brevemente sobre o prato"
                                         defaultValue={description}
                                         onChange={e => setDescription(e.target.value)}
                                     />
@@ -311,13 +310,13 @@ export function DishEdition() {
 
                     :
 
-                    
-                   <PageError/>
+
+                    <PageError />
             }
 
             <Footer />
 
-            {showAlert && <AlertModal message={alertMessage}  onClose={() => setShowAlert(false)} />}
+            {showAlert && <AlertModal message={alertMessage} onClose={() => setShowAlert(false)} />}
         </Container>
 
     );

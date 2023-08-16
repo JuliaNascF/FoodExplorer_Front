@@ -1,5 +1,5 @@
 
-import { Container, Content, PurchaseCard } from './styles.js'
+import { Container, Content, Payment } from './styles.js'
 import { Button } from '../Button';
 import { ButtonText } from "../ButtonText";
 import { useAuth } from "../../hooks/auth";
@@ -121,7 +121,7 @@ export function Card({ data, image, description, name, price,  ...rest }) {
                           
                             <img onClick={() => handleDetails(data.id)} src={image} alt="Imagem do prato" />
                            
-                                <h3 onClick={() => handleDetails(data.id)} className="disheName">{name}</h3>
+                                <h3 onClick={() => handleDetails(data.id)} className="dishName">{name}</h3>
                         
                             <p onClick={() => handleDetails(data.id)} className="description">{description}</p>
                             <h1 onClick={() => handleDetails(data.id)} className="price">R${price}</h1>
@@ -133,7 +133,7 @@ export function Card({ data, image, description, name, price,  ...rest }) {
 
                     <Content>
                         <button onClick={handleFavoriteClick}
-                            className="favButton"
+                            className="ButtonFav"
                            
                             >
                               {isFavorite ?
@@ -147,13 +147,13 @@ export function Card({ data, image, description, name, price,  ...rest }) {
                         <div  className="container">
                             <img onClick={() => handleDetails(data.id)}  src={image} alt="Imagem do prato" />
                            
-                                <h3 onClick={() => handleDetails(data.id)}  className="disheName">{name} </h3>
+                                <h3 onClick={() => handleDetails(data.id)}  className="dishName">{name} </h3>
                 
                             <p onClick={() => handleDetails(data.id)} className="description">{description}</p>
                             <h1 onClick={() => handleDetails(data.id)} className="price">R${price}</h1>
 
-                            <PurchaseCard>
-                                <div className="counter">
+                            <Payment>
+                                <div className="count">
                                     <ButtonText 
                                         icon={FiMinus}
                                         onClick={decrease}
@@ -171,7 +171,7 @@ export function Card({ data, image, description, name, price,  ...rest }) {
                                     onClick={() => AddToCart(data.id)}
                                     style={ { height: 56, width: 92, padding: '12px 4px' } }
                                 />
-                            </PurchaseCard>
+                            </Payment>
                         </div>
                     </Content>
                 }

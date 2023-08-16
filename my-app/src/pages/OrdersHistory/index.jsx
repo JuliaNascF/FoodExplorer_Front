@@ -8,6 +8,7 @@ import { useAuth } from "../../hooks/auth";
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { format } from 'date-fns';
+import { FaSpinner } from "react-icons/fa";
 import { FiArrowLeft } from 'react-icons/fi'
 
 
@@ -15,6 +16,7 @@ export function OrdersHistory() {
     const { user } = useAuth()
     const [orders, setOrders] = useState([]);
     const [ordersAdmin, setOrdersAdmin] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const navigate = useNavigate();
 
@@ -23,6 +25,7 @@ export function OrdersHistory() {
             try {
                 const response = await api.get("/orders");
                 setOrders(response.data);
+                setIsLoading(false);
             } catch (error) {
                 console.log(error);
             }
@@ -83,13 +86,13 @@ export function OrdersHistory() {
                     prevOrders.map(order => {
                         if (order.id === orderId) {
                             return { ...order, orderstatus: newStatus };
-                            
+
                         } else {
                             return order;
                         }
                     })
-                ); 
-            }  
+                );
+            }
         } catch (error) {
             console.log(error);
         }
@@ -100,6 +103,7 @@ export function OrdersHistory() {
         async function fetchOrdersAdmin() {
             try {
                 const response = await api.get("/orders/all");
+                setIsLoading(false);
                 setOrdersAdmin(response.data);
             } catch (error) {
                 console.log(error);
@@ -114,19 +118,19 @@ export function OrdersHistory() {
             <Header />
 
             {
-                        user.isAdmin ?
+                user.isAdmin ?
 
-                            <div className="back">
-                                <ButtonText onClick={handleBack} icon={FiArrowLeft} />
-                                <h3>Pedidos</h3>
-                            </div>
+                    <div className="back">
+                        <ButtonText onClick={handleBack} icon={FiArrowLeft} />
+                        <h3>Pedidos</h3>
+                    </div>
 
-                            :
-                            <div className="back">
-                                <ButtonText onClick={handleBack} icon={FiArrowLeft} />
-                                <h3>Histórico de Pedidos</h3>
-                            </div>
-                    }
+                    :
+                    <div className="back">
+                        <ButtonText onClick={handleBack} icon={FiArrowLeft} />
+                        <h3>Histórico de Pedidos</h3>
+                    </div>
+            }
             <Content>
 
 
@@ -142,26 +146,14 @@ export function OrdersHistory() {
                             </tr>
                         </thead>
 
-                        {orders.length === 0 || ordersAdmin === 0 &&
 
-
-                            <tbody>
-                                <tr>
-                                    <td colSpan="4">
-                                        <div className="zeroOrders">
-                                            <p>Não existem pedidos cadastrados ainda! =/</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        }
 
                         {
                             user.isAdmin ?
 
                                 <tbody className="order">
-
-                                    {ordersAdmin &&
+                                   
+                                        {ordersAdmin &&
                                         ordersAdmin.map(order => (
                                             <tr key={String(order.id)}>
                                                 <td>
@@ -188,12 +180,13 @@ export function OrdersHistory() {
                                                 <td>{formatDate(order.date)}</td>
                                             </tr>
                                         ))
-                                    }
+                                     }
                                 </tbody>
 
                                 :
                                 <tbody className="order">
-                                    {orders &&
+                                   
+                                        {orders &&
                                         orders.map(order => (
                                             <tr key={String(order.id)}>
                                                 <td>{order.orderStatus}</td>
@@ -211,63 +204,73 @@ export function OrdersHistory() {
                                                 <td>{formatDate(order.date)}</td>
                                             </tr>
                                         ))
-                                    }
+                                   }
                                 </tbody>
                         }
                     </table>
                 </Table>
-
-
+                
                 {user.isAdmin ? (
-                    ordersAdmin.map(order => (
-                        <Order className="mobile" key={String(order.id)}>
+                    isLoading ? (
+                        <FaSpinner size={25} className="loading-spinner" />
+                    ) : ordersAdmin.length > 0 ? (
+                        ordersAdmin.map(order => (
+                            <Order className="mobile" key={String(order.id)}>
 
-                            <div className="details">
-                                <p>0000{order.id}</p>
-                                <p>{formatDate(order.date)}</p>
-                            </div>
-                            <p>
-                                {parseItems(order.items).map(item => (
-                                    <div key={item.id}>
-                                        {item.quantity} x {item.name}
-                                    </div>
-                                ))}
-                            </p>
-                            <p>
-                                <select
-                                    value={order.orderStatus}
-                                    onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                                >
-                                    <option value="🔴 Pendente">🔴 Pendente</option>
-                                    <option value="🟠 Preparando">🟠 Preparando</option>
-                                    <option value="🟢 Entregue">🟢 Entregue</option>
-                                </select>
-                            </p>
-                                  
-                        </Order>
-                    ))
+                                <div className="details">
+                                    <p>0000{order.id}</p>
+                                    <p>{formatDate(order.date)}</p>
+                                </div>
+                                <p>
+                                    {parseItems(order.items).map(item => (
+                                        <div key={item.id}>
+                                            {item.quantity} x {item.name}
+                                        </div>
+                                    ))}
+                                </p>
+                                <p>
+                                    <select
+                                        value={order.orderStatus}
+                                        onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                                    >
+                                        <option value="🔴 Pendente">🔴 Pendente</option>
+                                        <option value="🟠 Preparando">🟠 Preparando</option>
+                                        <option value="🟢 Entregue">🟢 Entregue</option>
+                                    </select>
+                                </p>
+                            </Order>
+                        ))
+                    ) : (
+                        <p>Você não possui pedidos cadastrados.</p>
+                    )
                 ) : (
-                             
-                    orders.map(order => (
-                        <Order className="mobile" key={String(order.id)}>
+                    isLoading ? (
+                        <FaSpinner size={25} className="loading-spinner" />
+                    ) : ordersAdmin.length > 0 ? (
+                        orders.map(order => (
+                            <Order className="mobile" key={String(order.id)}>
+                                <div className="details">
+                                    <p>0000{order.id}</p>
+                                    <p>{formatDate(order.date)}</p>
+                                </div>
+                                <p>
+                                    {parseItems(order.items).map(item => (
+                                        <div key={item.id}>
+                                            {item.quantity} x {item.name}
+                                        </div>
+                                    ))}
+                                </p>
+                                <p>{order.orderStatus}</p>
 
-                            <div className="details">
-                                <p>0000{order.id}</p>
-                                <p>{formatDate(order.date)}</p>
-                            </div>
-                            <p>
-                                {parseItems(order.items).map(item => (
-                                    <div key={item.id}>
-                                        {item.quantity} x {item.name}
-                                    </div>
-                                ))}
-                            </p>
-                            <p>{order.orderStatus}</p>
-                             
-                            
-                        </Order>
-                    ))
+                            </Order>
+                        ))
+                    ) : (
+                        <p>Você não possui pedidos cadastrados.</p>
+                    )
                 )}
+
+
+
             </Content>
             <Footer />
         </Container>

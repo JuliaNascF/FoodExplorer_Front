@@ -244,7 +244,7 @@ export const Form = styled.form`
         }
     }
 
-    .ingredients {
+    .TagIngredients {
         display: flex;
         flex-wrap: wrap;
         align-content: center;
@@ -258,7 +258,7 @@ export const Form = styled.form`
         border: 1px solid ${({ theme }) => theme.COLORS.WHITE};
     }
 
-    .ingredientsTag { 
+    .ingredients { 
         justify-content: space-between;
     }
 
@@ -290,7 +290,7 @@ export const Form = styled.form`
             align-items: flex-start;
         }
 
-        .ingredients {
+        .TagIngredients {
             display: flex;
             flex-wrap: wrap;
             align-content: center;
@@ -306,7 +306,7 @@ export const Form = styled.form`
             border: 1px solid ${({ theme }) => theme.COLORS.WHITE};
         }
 
-        .ingredientsTag { 
+        .ingredients { 
             display: flex;
             justify-content: space-between;
             gap: 3.2rem;

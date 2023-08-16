@@ -7,6 +7,7 @@ import { AlertModal } from '../../components/AlertModal';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 export function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -18,10 +19,8 @@ export function SignIn() {
     function handleSignIn() {
         signIn({ email, password })
           .then(() => {
-            const isAuthenticated = localStorage.getItem('@budega:token') !== null;
-            if (isAuthenticated) {
-            
-            }
+            const isAuthenticated = localStorage.getItem('@foodexplorer:token') !== null;
+
           })
           .catch(error => {
             if (error.response && error.response.data && error.response.data.error) {

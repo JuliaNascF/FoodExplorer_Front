@@ -14,7 +14,7 @@ export const Content = styled.div`
     
     background: rgba(0, 0, 0, 0.32);
 
-    .favButton {
+    .ButtonFav {
         position: absolute;
         top: 1.2rem;
         right: 1.2rem;
@@ -24,7 +24,7 @@ export const Content = styled.div`
         font-size: 3rem;
     }
 
-    .favButton svg {
+    .ButtonFav svg {
         fill: ${({ theme }) => theme.COLORS.BLUE};
     }
 
@@ -53,7 +53,7 @@ export const Content = styled.div`
         }
     }
 
-    .disheName {
+    .dishName {
         cursor:pointer;
         font-weight: 700;
         font-size: 2.4rem;
@@ -86,7 +86,7 @@ export const Content = styled.div`
     }
 `;
 
-export const PurchaseCard = styled.div`
+export const Payment = styled.div`
     display: flex;
 
     button {
@@ -95,14 +95,14 @@ export const PurchaseCard = styled.div`
         white-space: nowrap;
     }
     
-    .counter {
+    .count{
         display: flex;
         align-items: center;
         gap: 1.4rem;
         margin: 0 2.4rem 0 0;
     }
 
-    .counter span {
+    .count span {
         font-size: 2rem;
         font-family: 'Roboto', sans-serif;
         font-weight: bold;

@@ -1,12 +1,11 @@
 import { Container } from "./styles";
 import { ButtonText } from "../ButtonText";
-import { api } from "../../services/api";
 
 export function CardOrder({data,quantity, onRemove}) { 
 
     return(
         <Container>
-            <div className="card">
+              <div className="container">
 
                 <img src={data.image} alt="Imagem do Prato" />
                 
@@ -17,8 +16,9 @@ export function CardOrder({data,quantity, onRemove}) {
                        
                     />
                 </div>
+              </div>
                 
-            </div>
+        
         </Container>
     )
 }

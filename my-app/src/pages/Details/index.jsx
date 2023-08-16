@@ -1,5 +1,5 @@
 
-import { Container, Content, Ingredients, PurchaseCard } from "./styles.js";
+import { Container, Content, Ingredients, Payment } from "./styles.js";
 
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
@@ -102,7 +102,7 @@ export function Details() {
 
 
 
-                        <div className="purchaseCard">
+                        <div className="details">
                             <div className="description">
 
                                 <h1>{data.name}</h1>
@@ -122,7 +122,7 @@ export function Details() {
                             {
                                 user.isAdmin ?
 
-                                    <PurchaseCard>
+                                    <Payment>
                                         {
                                             data &&
                                             <Link to={`/edition/${data.id}`}>
@@ -132,12 +132,12 @@ export function Details() {
                                                 />
                                             </Link>
                                         }
-                                    </PurchaseCard>
+                                    </Payment>
 
                                     :
 
-                                    <PurchaseCard>
-                                        <div className="counter">
+                                    <Payment>
+                                        <div className="count">
                                             <ButtonText
                                                 icon={FiMinus}
                                                 onClick={decrease}
@@ -156,7 +156,7 @@ export function Details() {
 
                                             style={{ height: 56, width: 92, padding: '12px 4px' }}
                                         />
-                                    </PurchaseCard>
+                                    </Payment>
                             }
                         </div>
                     </div>

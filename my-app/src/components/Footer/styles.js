@@ -26,26 +26,24 @@ export const Content = styled.div`
             font-family: 'DM Sans', sans-serif;
             text-align: right;
         }
+.logo {
+    display: flex;
+    
+    height: 7rem;
+    gap: 1rem;
+
+    align-items: center;
+    white-space: nowrap;
+
+    color: ${({ theme }) => theme.COLORS.GRAY_300};
+  
+}
+
+.logo span {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.6;
+    font-weight: 700;
+    flex-wrap: wrap;
+}
 `;
 
-export const Logo = styled.div`
-    .logo {
-        display: flex;
-        
-        height: 7rem;
-        gap: 1rem;
-
-        align-items: center;
-        white-space: nowrap;
-
-        color: ${({ theme }) => theme.COLORS.GRAY_300};
-      
-    }
-
-    span {
-        font-family: 'Roboto', sans-serif;
-        font-size: 1.6;
-        font-weight: 700;
-        flex-wrap: wrap;
-    }
-`;

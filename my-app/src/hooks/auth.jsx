@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { api } from '../services/api';
+import jwt_decode from 'jwt-decode'
 
 export const AuthContext = createContext({});
 
@@ -50,6 +51,17 @@ function AuthProvider({children}){
     }
 
    }, [])
+
+   useEffect(() => {
+    const token = localStorage.getItem('@foodexplorer:token');
+    if (token) {
+        const decodedToken = jwt_decode(token);
+        if (Date.now() >= decodedToken.exp * 1000) {
+            localStorage.removeItem('@foodexplorer:token');
+            setData({});
+        }
+    }
+}, []);
 
     return (
 <AuthContext.Provider value={{ 

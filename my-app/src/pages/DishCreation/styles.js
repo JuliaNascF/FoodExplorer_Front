@@ -13,8 +13,6 @@ export const Container = styled.div`
     "header"
     "content"
     "footer";
- 
-
     overflow-y: auto;
      
     &::-webkit-scrollbar {
@@ -158,7 +156,7 @@ export const Form = styled.form`
         }
     }
 
-    .ingredients {
+    .TagIngredients {
         display: flex;
         flex-wrap: wrap;
         align-content: center;
@@ -171,7 +169,7 @@ export const Form = styled.form`
         border: 1px solid white;
     }
 
-    .ingredientsTag { 
+    .ingredients { 
         gap: 3rem;
     }
 
@@ -199,7 +197,7 @@ export const Form = styled.form`
         width: 30%;
     }
 
-        .ingredients {
+        .TagIngredients {
             display: flex;
             flex-wrap: wrap;
             align-content: center;
@@ -213,7 +211,7 @@ export const Form = styled.form`
             border: 1px solid ${({ theme }) => theme.COLORS.WHITE};
         }
 
-        .ingredientsTag { 
+        .ingredients{ 
             display: flex;
         
         }

@@ -13,7 +13,7 @@ export function Header({ search, setSearch, showSearch }) {
     const navigate = useNavigate();
 
     function mobileMenu() {
-        document.getElementById('hamburger').classList.toggle('active')
+        document.getElementById('menu').classList.toggle('active')
         document.getElementById('nav-menu').classList.toggle('active')
     }
 
@@ -46,7 +46,7 @@ export function Header({ search, setSearch, showSearch }) {
 
                     <Content>
 
-                        <div className="hamburger" id="hamburger" onClick={mobileMenu}>
+                        <div className="menu" id="menu" onClick={mobileMenu}>
                             <span className="bar"></span>
                             <span className="bar"></span>
                             <span className="bar"></span>
@@ -103,7 +103,7 @@ export function Header({ search, setSearch, showSearch }) {
 
                     <Content>
 
-                        <div className="hamburger" id="hamburger" onClick={mobileMenu}>
+                        <div className="menu" id="menu" onClick={mobileMenu}>
                             <span className="bar"></span>
                             <span className="bar"></span>
                             <span className="bar"></span>

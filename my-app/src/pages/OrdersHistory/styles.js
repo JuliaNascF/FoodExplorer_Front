@@ -1,5 +1,14 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
+
+const spin = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`; 
 export const Container = styled.div`
     position: relative;
     min-width: 32rem;
@@ -41,6 +50,11 @@ export const Container = styled.div`
         .mobile {
             display: none;
         }
+
+        .loading-spinner {
+            display: none;
+}
+
     }
 
     @media  only screen and (max-width: 767px) {
@@ -65,18 +79,10 @@ export const Content = styled.div`
    
     padding: 3rem 4rem;
 
-    .zeroOrders {
-        justify-content: center;
-        align-items: center;
-        padding: 10rem;
-        white-space: normal;
-    }
-
-    .zeroOrders p {
-        text-align: center;
-        font-weight: bold;
-        font-size: 3rem;
-    }
+    .loading-spinner {
+   margin-top: 4rem;
+ animation:${spin} 1s linear infinite;
+}
 
   
 `;

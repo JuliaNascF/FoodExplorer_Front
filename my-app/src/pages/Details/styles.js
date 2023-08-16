@@ -119,7 +119,7 @@ export const Content = styled.div`
                 height: clamp(5rem, 5rem + 30vw, 39rem);
             }
         
-            .purchaseCard{
+            .details{
                 display: flex;
                 justify-content: center;
                 flex-direction: column;
@@ -134,7 +134,7 @@ export const Ingredients = styled.div`
 
 
 
-export const PurchaseCard = styled.div`
+export const Payment = styled.div`
     display: flex;
     justify-content: center;
     button {
@@ -143,14 +143,14 @@ export const PurchaseCard = styled.div`
         white-space: nowrap;
     }
 
-    .counter {
+    .count {
         display: flex;
         align-items: center;
         gap: 1.4rem;
         margin: 0 2.4rem 0 0;
     }
 
-    .counter span {
+    .count span {
         font-size: 2rem;
         font-family: 'Roboto', sans-serif;
         font-weight: bold;

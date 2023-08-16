@@ -80,7 +80,7 @@ export const Content = styled.div`
 
     }
 
-    .hamburger {
+    .menu {
         display: none;
     }
 
@@ -151,20 +151,20 @@ export const Content = styled.div`
             margin: 2.5rem 0;
         }
 
-        .hamburger {
+        .menu {
             display: block;
             cursor: pointer;
         }
 
-        .hamburger.active .bar:nth-child(2) {
+        .menu.active .bar:nth-child(2) {
             opacity: 0;
         }
 
-        .hamburger.active .bar:nth-child(1) {
+        .menu.active .bar:nth-child(1) {
             transform: translateY(8px) rotate(45deg);
         }
 
-        .hamburger.active .bar:nth-child(3) {
+        .menu.active .bar:nth-child(3) {
             transform: translateY(-8px) rotate(-45deg);
         }
     }
