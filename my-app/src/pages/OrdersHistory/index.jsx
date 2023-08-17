@@ -213,7 +213,7 @@ export function OrdersHistory() {
                 {user.isAdmin ? (
                     isLoading ? (
                         <FaSpinner size={25} className="loading-spinner" />
-                    ) : ordersAdmin.length > 0 ? (
+                    ) : 
                         ordersAdmin.map(order => (
                             <Order className="mobile" key={String(order.id)}>
 
@@ -240,13 +240,11 @@ export function OrdersHistory() {
                                 </p>
                             </Order>
                         ))
-                    ) : (
-                        <p>Você não possui pedidos cadastrados.</p>
-                    )
+                    
                 ) : (
                     isLoading ? (
                         <FaSpinner size={25} className="loading-spinner" />
-                    ) : ordersAdmin.length > 0 ? (
+                    ) :
                         orders.map(order => (
                             <Order className="mobile" key={String(order.id)}>
                                 <div className="details">
@@ -264,9 +262,7 @@ export function OrdersHistory() {
 
                             </Order>
                         ))
-                    ) : (
-                        <p>Você não possui pedidos cadastrados.</p>
-                    )
+                    
                 )}
 
 
