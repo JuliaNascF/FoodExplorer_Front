@@ -10,6 +10,8 @@ import { IngredientsTag } from "../../components/IngredientsTag";
 import { Textarea } from "../../components/Textarea";
 import { PageError } from "../../components/PageError/index.jsx";
 import { AlertModal } from '../../components/AlertModal';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
 import { useState, useEffect } from "react";
@@ -178,11 +180,38 @@ export function DishEdition() {
                 user.isAdmin ?
 
                     <Content>
+                        {!data ? (
+                            <SkeletonTheme baseColor="hsla(200, 100%, 5%, 1)" highlightColor="#1f2133">
+                                <Form>
+                                <header>
+                                    <Link to="/">
+                                        <ButtonText title="Voltar" icon={RiArrowLeftSLine} />
+                                    </Link>
+                                    <h1>Editar prato</h1>
+                                </header>
+                                <div className="details">
+                                    <div className="dishImage">
+                                                <Image>
+                                                <Skeleton circle width={180} height={180}  />
+                                                </Image>
+                                            
+                                    </div>
+
+                                    <div className="dishDetails">
+                                    <Skeleton count={4} height={20} style={{ marginBottom: '10px' }}  />
+                               <Skeleton count={4} height={20} style={{ marginBottom: '10px' }}  />
+                               <Skeleton count={1} height={50} style={{ marginBottom: '10px' }}  />
 
 
+                                </div>
+                                </div>
+                                </Form>
+                            </SkeletonTheme>
+                        ) : (
 
-                        {
-                            data &&
+
+                            
+                                data &&
 
                             <Form>
                                 <header>
@@ -195,25 +224,26 @@ export function DishEdition() {
                                 <div className="details">
                                     <div className="dishImage">
                                         <p>Imagem do Prato</p>
+                                     
+                                                <Image>
+                                                    <img
+                                                        src={image ? image : data.image}
+                                                        alt="Foto do prato"
+                                                    />
 
-                                        <Image>
-                                            <img
-                                                src={image ? image : data.image}
-                                                alt="Foto do prato"
-                                            />
+                                                    <label htmlFor="image">
+                                                        <FiCamera />
 
-                                            <label htmlFor="image">
-                                                <FiCamera />
-
-                                                <input
-                                                    id="image"
-                                                    type="file"
-                                                    name="file"
-                                                    accept="file/*"
-                                                    onChange={handleChangeImage}
-                                                />
-                                            </label>
-                                        </Image>
+                                                        <input
+                                                            id="image"
+                                                            type="file"
+                                                            name="file"
+                                                            accept="file/*"
+                                                            onChange={handleChangeImage}
+                                                        />
+                                                    </label>
+                                                </Image>
+                                            
                                     </div>
 
                                     <div className="dishDetails">
@@ -289,8 +319,8 @@ export function DishEdition() {
                                 </div>
 
                             </Form>
-                        }
-
+                        
+                    )}
 
                         <div className="button">
                             <Button
@@ -317,7 +347,7 @@ export function DishEdition() {
             <Footer />
 
             {showAlert && <AlertModal message={alertMessage} onClose={() => setShowAlert(false)} />}
-        </Container>
+        </Container >
 
     );
 }

@@ -120,13 +120,10 @@ export const Content = styled.div`
             left: -100%;
             top: 10.4rem;
             z-index: 9999;
-            .button{
-            display:none
-          }
             width: 100%;
-            height: 35rem;
+            height: 25rem;
             gap: 2rem;
-            padding: 5rem 5rem 3rem;
+            padding: 3rem;
             border-radius: 0 0 2rem 2rem;
             border: 1px solid ${({ theme }) => theme.COLORS.WHITE};
             
@@ -134,9 +131,12 @@ export const Content = styled.div`
             
             background-color: ${({ theme }) => theme.COLORS.BLUE_200};
             box-shadow:
-                0 10px 27px rgba(0, 0, 0, 0.05);
-
-           
+            0 10px 27px rgba(0, 0, 0, 0.05);
+            
+            .button{
+            display:none
+          }
+            
         }
 
         .nav-menu.active {

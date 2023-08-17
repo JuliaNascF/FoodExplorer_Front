@@ -61,7 +61,7 @@ export function Header({ search, setSearch, showSearch }) {
                         <img onClick={handleHistory} id="order" src={order} alt="" />
 
 
-                        <div className="nav-menu" id="nav-menu">
+                        <div className="nav-menu" id="nav-menu"  style={{ height: "20rem" }}>
                             {showSearch?
                                 <Search>
                                     <label>

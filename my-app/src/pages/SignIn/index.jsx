@@ -11,7 +11,8 @@ import { useNavigate } from "react-router-dom";
 export function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { signIn, loading } = useAuth();
+    const { signIn} = useAuth();
+    const [loading, setLoading] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const navigate = useNavigate();
@@ -19,19 +20,19 @@ export function SignIn() {
     function handleSignIn() {
         signIn({ email, password })
           .then(() => {
+            setLoading(false);
             const isAuthenticated = localStorage.getItem('@foodexplorer:token') !== null;
-
+             if(isAuthenticated){
+                navigate("/")
+             }
           })
-          .catch(error => {
-            if (error.response && error.response.data && error.response.data.error) {
-                setAlertMessage("Erro: " + error.response.data.error);
-                setShowAlert(true);
-            } else {
-                setAlertMessage("Não foi possível cadastrar");
-                setShowAlert(true);
-            }
-        });
-      }
+          .catch((error) => {
+            setAlertMessage(error.message);
+            setShowAlert(true);
+            setLoading(false);
+          });
+    }
+      
       
       function handleSignUp(){
          navigate("/register")

@@ -19,13 +19,15 @@ function AuthProvider({children}){
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         setData({ user, token })
 
-    } catch(error){
-         if(error.response){
-            alert(error.response.data.message)
-         }else{
-            alert("Não foi possível entrar.")
-         }
-    }
+    } catch (error) {
+        let errorMessage 
+    
+        if (error.response && error.response.data && error.response.data.message) {
+          errorMessage = error.response.data.message;
+        }
+    
+        throw new Error(errorMessage);
+      }
      
    }
 

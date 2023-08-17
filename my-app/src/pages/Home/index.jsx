@@ -16,19 +16,14 @@ export function Home() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
 
-
-
   useEffect(() => {
     async function fetchDishes() {
       try {
         const response = await api.get('/dishes');
         setDishes(response.data);
 
-
-
       } catch (error) {
         console.error('Erro ao buscar os pratos:', error);
-
       }
     }
 
