@@ -31,11 +31,30 @@ ___
 
 ## 🚀 Como utilizar
 
-Clone o projeto para o local desejado em seu computador.
+1.Clone o projeto para o local desejado em seu computador.
 
 ```bash
 $ git clone https://github.com/JuliaNascF/FoodExplorer_front.git
 ```
+2.Navegue até a pasta da aplicação
+
+```bash
+$ cd FoodExplorer_front
+```
+```bash
+$ cd my-app
+```
+3. Instale as dependências do projeto:
+   
+ ```bash
+$ npm install
+```
+4. Inicie o projeto:
+
+ ```bash
+$ npm start
+```
+
 ## Deploy:
 https://food-explorer-front-zeta.vercel.app/
 
