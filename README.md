@@ -34,7 +34,7 @@ ___
 Clone o projeto para o local desejado em seu computador.
 
 ```bash
-$ git clone https://github.com/JuliaNascF/FoodExplorer_Front.git
+$ git clone https://github.com/JuliaNascF/FoodExplorer_front.git
 ```
 ## Deploy:
 https://food-explorer-front-zeta.vercel.app/
