@@ -1,5 +1,6 @@
 import { Container, Content, Search, Logout } from "./styles";
 import { Button } from "../Button";
+import { Link } from "react-router-dom";
 import order from "../../assets/order.svg";
 import { useNavigate } from "react-router-dom";
 import { FiSearch, FiLogOut } from 'react-icons/fi';
@@ -52,11 +53,15 @@ export function Header({ search, setSearch }) {
                             <span className="bar"></span>
                         </div>
 
+                        <Link to="/" >
+
                         <div className="logo">
 
                             <img src={logoAdmin} alt="" />
                             
                         </div>
+                        </Link>
+
 
                         <img onClick={handleHistory} id="order" src={order} alt="" />
 
@@ -88,7 +93,6 @@ export function Header({ search, setSearch }) {
                                 <FiLogOut onClick={handleInit} />
                             </Logout>
 
-
                         </div>
 
                     </Content>
@@ -102,12 +106,12 @@ export function Header({ search, setSearch }) {
                             <span className="bar"></span>
                             <span className="bar"></span>
                         </div>
+                        <Link to="/">
                         <div className="logo">
-
                             <img src={logo} alt="" />
                             <h1>food explorer</h1>
-
                         </div>
+                        </Link>
 
                         <img onClick={handleOrder} id="order" src={order} alt="" />
 
