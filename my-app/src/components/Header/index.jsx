@@ -7,7 +7,7 @@ import { useAuth } from "../../hooks/auth";
 import logo from '../../assets/logo.svg';
 import logoAdmin from '../../assets/logoAdmin.svg';
 
-export function Header({ search, setSearch, showSearch }) {
+export function Header({ search, setSearch }) {
     const { signOut } = useAuth();
     const { user } = useAuth();
     const navigate = useNavigate();
@@ -51,18 +51,18 @@ export function Header({ search, setSearch, showSearch }) {
                             <span className="bar"></span>
                             <span className="bar"></span>
                         </div>
+
                         <div className="logo">
 
                             <img src={logoAdmin} alt="" />
-
-
+                            
                         </div>
 
                         <img onClick={handleHistory} id="order" src={order} alt="" />
 
 
                         <div className="nav-menu" id="nav-menu"  style={{ height: "20rem" }}>
-                            {showSearch?
+                        
                                 <Search>
                                     <label>
                                         <FiSearch size={24} />
@@ -75,12 +75,6 @@ export function Header({ search, setSearch, showSearch }) {
                                     </label>
                                 </Search>
 
-                                :
-
-                                <div className="noShow">
-                                    
-                                </div>
-                            }
                             <p onClick={handleCreate}>Novo Prato</p>
 
 
@@ -119,7 +113,7 @@ export function Header({ search, setSearch, showSearch }) {
 
 
                         <div className="nav-menu" id="nav-menu">
-                        {showSearch?
+                   
                                 <Search>
                                     <label>
                                         <FiSearch size={24} />
@@ -131,13 +125,6 @@ export function Header({ search, setSearch, showSearch }) {
                                         />
                                     </label>
                                 </Search>
-
-                                :
-
-                                <div className="noShow">
-                                    
-                                </div>
-                            }
 
                             <p onClick={handleFavorites} >Meus favoritos</p>
                             <p onClick={handleHistory}>Histórico de Pedidos</p>

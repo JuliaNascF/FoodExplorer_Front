@@ -84,7 +84,7 @@ export function DishEdition() {
         setIngredients(prevState => prevState.filter(ingredient => ingredient !== deleted));
     }
 
-    async function handleUpdateDish() {
+    async function  handleUpdateDish() {
         if (!image) {
             setAlertMessage("Você não inseriu uma imagem para o prato!");
             setShowAlert(true);
@@ -135,22 +135,28 @@ export function DishEdition() {
             formData.append("ingredients", ingredient)
         ))
 
+        try{
 
+        
         await api
             .put(`/dishes/${params.id}`, formData)
-            .then(setAlertMessage("Prato atualizado com sucesso!"), setShowAlert(true)
-                , navigate("/"))
-            .catch((error) => {
-                if (error.response) {
-                    alert(error.response.data.message);
-                } else {
-                    setAlertMessage("Erro ao atualizar o prato!");
-                    setShowAlert(true)
-                }
-            });
+            setAlertMessage("Prato adicionado com sucesso!");
+            setShowAlert(true);
+            navigate("/");
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data.message);
+            } else {
+                setAlertMessage("Erro ao adicionar prato");
+                setShowAlert(true);
+            }
 
         setLoading(false);
     }
+}
+
+
+   
 
     useEffect(() => {
         async function fetchDish() {
@@ -174,7 +180,7 @@ export function DishEdition() {
     return (
 
         <Container>
-            <Header />
+            <Header   />
 
             {
                 user.isAdmin ?

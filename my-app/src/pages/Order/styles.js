@@ -20,13 +20,11 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     grid-area: content;
-    width: 100vw;
+    width: 100%;
     max-width: 121.2rem;
     height: 100%;
-    margin: auto;
+    margin: 0 auto;
     padding: 3.5rem 4rem;
-    
-    justify-content:center;
     align-items: center;
     text-align: center;
     
@@ -37,7 +35,11 @@ export const Container = styled.div`
       font-size:25px;
     }
 
-    @media only screen and (max-width: 768px) {
+    .show{
+        display:none;
+    }
+
+    @media only screen and (max-width: 980px) {
         position:absolute;
         top: 13rem ;
         left: 4rem;
@@ -73,7 +75,7 @@ export const Container = styled.div`
     }
       
 
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 980px) {
         flex-direction: row;
         text-align: left;
         align-items: flex-start;

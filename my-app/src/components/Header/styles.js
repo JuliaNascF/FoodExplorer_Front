@@ -68,9 +68,7 @@ export const Content = styled.div`
         width: 100%;
         gap: 3rem;
 
-        .noShow{
-            margin-left:4rem;
-        }
+       
         p{
             cursor: pointer;
             display: flex;

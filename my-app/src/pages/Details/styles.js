@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    display: flex;
-    flex-direction: column;
     display: grid;
     grid-template-rows: 10.5rem auto 8rem;
     grid-template-areas:
@@ -11,7 +9,7 @@ export const Container = styled.div`
     "footer";
     height: 100vh;
     width: 100%;
-    min-width: 35rem;
+  
   
 `;
 
@@ -19,7 +17,7 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
     grid-area:content;
-    width: 100%;
+    width: 100vw;
     max-width: 121.2rem;
     height: 100%;
     padding: 3.5rem 4rem;

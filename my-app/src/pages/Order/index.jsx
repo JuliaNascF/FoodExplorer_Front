@@ -22,7 +22,6 @@ import checkCircle from '../../assets/CheckCircle.svg';
 
 
 export function Order() {
-
     const [loading, setLoading] = useState(false);
     const [isPixVisible, setIsPixVisible] = useState(false);
     const [isCreditVisible, setIsCreditVisible] = useState(false);
@@ -49,7 +48,6 @@ export function Order() {
                 setCartItems(response.data.cartItems);
                 setTotal(response.data.total);
             } catch (error) {
-
             }
         }
 

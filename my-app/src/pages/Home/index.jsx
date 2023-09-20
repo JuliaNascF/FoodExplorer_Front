@@ -97,7 +97,7 @@ export function Home() {
 
   return (
     <Container>
-      <Header value={search} setSearch={setSearch} showSearch={true} />
+      <Header value={search} setSearch={setSearch}  />
       <main>
         <Content>
           <Banner>
